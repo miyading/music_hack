@@ -1,15 +1,23 @@
 # Music Catalog Data-Room Diligence Pipeline
 
 A repeatable, config-driven pipeline for auditing seller data rooms during
-music catalog acquisitions. Built for the Music Moneyball Hackathon (NYC 2026)
+music catalog acquisitions, built for the Music Moneyball Hackathon (NYC 2026)
 around the Hollow Verge / Northbridge case study.
 
-It answers, automatically and on every re-run:
+**Purpose:** ingest the messy, mixed-format files in a seller's data room and
+present the due-diligence findings to the fund's stakeholders — both as a
+findings document (`output/DD_REPORT.md`, structured like the diligence deck)
+and as a single consolidated payload (`output/dashboard.json`) that powers the
+stakeholder dashboard UI, including a dedicated view per party involved
+(seller, seller's counsel, each collection society, the estates, BMG, Pulse).
 
-1. **What is actually being sold** — and does the paper support it?
+On every re-run it answers:
+
+1. **What is actually being sold** — and does the paper support it (chain of title, composition count)?
 2. **What is missing, unclear, inconsistent or duplicated?**
 3. **Does the claimed revenue survive a bottom-up rebuild from the seller's own statements?**
-4. **What exactly do we still need, from whom, at what priority?**
+4. **What should we know before moving forward** — rights disputes, estates, fabrication evidence?
+5. **What exactly do we still need, from whom, at what priority?**
 
 No external dependencies — Python 3.10+ standard library only.
 
@@ -22,8 +30,9 @@ python3 scripts/make_demo_dataroom.py
 # 2. Run the full pipeline against it
 python3 run_pipeline.py --dataroom demo_dataroom --out output
 
-# 3. Read the stakeholder report
+# 3. Read the stakeholder findings document / feed the dashboard
 open output/DD_REPORT.md
+cat output/dashboard.json   # consolidated payload for the stakeholder UI
 ```
 
 To run against a real data room, point `--dataroom` at the export folder and
@@ -32,7 +41,7 @@ adjust the three config files.
 ## Pipeline stages
 
 ```
-data room ──> [1 manifest] ──> [2 coverage] ──> [3 reconcile] ──> [4 scorecard] ──> [5 requisitions] ──> [6 report]
+data room ──> [1 manifest] ──> [2 coverage] ──> [3 reconcile] ──> [4 scorecard] ──> [5 requisitions] ──> [6 report] ──> [7 dashboard]
 ```
 
 | Stage | Script | What it finds |
@@ -42,7 +51,8 @@ data room ──> [1 manifest] ──> [2 coverage] ──> [3 reconcile] ──
 | 3 Reconcile | `pipeline/reconcile.py` | Bottom-up revenue rebuild from statement CSVs vs the seller's summary; label gross receipts booked as publishing revenue; settlements double-counted across years; accrued/black-box income never received; per-song concentration vs disclosed |
 | 4 Scorecard | `pipeline/scorecard.py` | 18 required document classes scored SATISFIED / PARTIAL / MISSING; drafts and unsigned copies don't count; "executed" files byte-identical to drafts are demoted |
 | 5 Requisitions | `pipeline/requisitions.py` | Every gap becomes a prioritized request addressed to the right counterparty (seller, counsel, societies, estates, BMG, Pulse) |
-| 6 Report | `pipeline/report.py` | Single stakeholder-facing markdown report: KPIs, hygiene, reconciliation bridge, coverage matrix, scorecard, requisition log, recommendation |
+| 6 Report | `pipeline/report.py` | Stakeholder findings document mirroring the diligence deck: KPIs · 1 What is for sale · 2 Headline findings (2.1 title chain, 2.2 revenue, 2.3 fabrication, 2.4 rights disputes & estates, 2.5 coverage gaps) · 3 Gap analysis · 4 Collection process · 5 Recommendation |
+| 7 Dashboard | `pipeline/dashboard.py` | One consolidated `dashboard.json` for the stakeholder UI: deal, KPI tiles, findings, reconciliation, coverage, scorecard, hygiene, requisitions — plus the same requisitions grouped per counterparty for the per-party views |
 
 ## The pipeline is the collection tracker
 
@@ -66,12 +76,14 @@ seller after each run.
 | `config/claims.json` | The deal: seller, what's offered/excluded, the seller's claimed revenue / concentration, the label royalty rate |
 | `config/societies.json` | Expected societies, statement cadence (quarterly / half-yearly / yearly) and date ranges; known distributors |
 | `config/requirements.json` | The fund's 18 required document classes as filename-pattern rules with invalid patterns (draft/unsigned/illegible), minimum counts, counterparties and priorities |
+| `config/findings.json` | Curated analyst findings that file-scanning alone cannot derive: title-chain analysis (1998 admin deal, unexecuted 2017 deed, composition count 40/32/60), the rights disputes & estates table (Iqbal, Tate, Akhtar, Hammond sample, Petrov, Pulse), coverage narrative, and the recommendation's closing conditions |
 
 ## Outputs
 
 | File | Purpose |
 |---|---|
-| `output/DD_REPORT.md` | Stakeholder report (the deliverable) |
+| `output/DD_REPORT.md` | Stakeholder findings document (mirrors the diligence deck) |
+| `output/dashboard.json` | Consolidated payload for the stakeholder dashboard UI, incl. per-party views |
 | `output/manifest.json` | Full file inventory with hashes and hygiene flags |
 | `output/coverage.json` | Coverage matrix with exact missing periods |
 | `output/reconciliation.json` | Claimed-vs-verified bridge, per-song earnings |

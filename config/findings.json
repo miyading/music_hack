@@ -1,0 +1,65 @@
+{
+  "title_chain": {
+    "headline": "Title is unproven — deal-blocking",
+    "bullets": [
+      "The foundational 1998 Vermillion agreement is an administration / co-publishing deal, not an assignment — rights revert to the writers on termination. Whether Northbridge ever owned the catalog is unresolved.",
+      "The 2017 Vermillion->Northbridge deed in the room is unexecuted (blank signature blocks); the master purchase agreement and all schedules/annexes are missing.",
+      "The masters chain rests on a 2014 Reston Vance / Capston assignment not in the data room.",
+      "No writer agreements and no copyright registrations exist anywhere in the room."
+    ],
+    "composition_count": {
+      "headline": "The composition count does not close.",
+      "deed_recites": 40,
+      "sale_covers": 32,
+      "internal_inventory": 60,
+      "note": "The 2017 assignment deed recites 40 compositions; the sale covers 32; the seller's internal inventory lists 60 works. The definitive schedule of assigned works was never produced."
+    }
+  },
+  "rights_disputes": [
+    {
+      "issue": "Quiet Engine",
+      "detail": "Two conflicting split sheets; operative v2 (incl. Hassan Iqbal 12%) unsigned by 2 of 5 writers; Iqbal has counsel engaged, claims years of unpaid UK/US royalties",
+      "exposure": "Back-royalties + contested splits"
+    },
+    {
+      "issue": "Carrying Stones",
+      "detail": "Naomi Tate's signed 4% share missing from the PRS registration since 2005; two written complaints ignored",
+      "exposure": "~20 yrs back-payment liability"
+    },
+    {
+      "issue": "December Rooftops",
+      "detail": "Lena Akhtar (30% writer on the top earner) died 2022; share sits in PRS suspense; no estate contact",
+      "exposure": "Top asset partially frozen"
+    },
+    {
+      "issue": "Slow Engine (sample)",
+      "detail": "8% sample share 'signed' by a writer deceased 12 years earlier; controlling Bug Music side letter exists only as an illegible 2001 fax; internal note hints at a '2027 sample escalation'",
+      "exposure": "Unquantified assumed liability"
+    },
+    {
+      "issue": "Petrov estate",
+      "detail": "Julian Petrov writes on all 32 songs (~25%); zero probate documents; estate bank details changed informally by post",
+      "exposure": "Succession + payment-fraud risk"
+    },
+    {
+      "issue": "Pulse sync agency",
+      "detail": "3-year appointment (2018) never renewed; Pulse still issuing licences in 2021-22 (incl. BMW)",
+      "exposure": "Licence validity risk"
+    }
+  ],
+  "coverage_notes": [
+    "GEMA (DE): 2021-2023 entirely missing — internally admitted lost; Germany booked at $0.",
+    "US mechanicals: HFA stops 2019-Q4; no MLC statements at all (2021 onward).",
+    "Atlantico (Brazil) silent since Q2-2023; no YouTube Content ID income ever reported."
+  ],
+  "recommendation": {
+    "verdict": "Do not proceed at the indicated basis.",
+    "closing_conditions": [
+      "Executed chain of title (1998 -> 2017 -> today) with definitive schedules",
+      "PRS re-registrations and back-payment quantification (Tate, Iqbal)",
+      "Estate documentation (Petrov probate, Akhtar succession) with verified payment instructions",
+      "Legible Hammond / Bug Music sample clearance including any escalation clause",
+      "Holdback / escrow covering unquantified liabilities (Hammond escalation, GEMA black-box, accrued writer claims)"
+    ]
+  }
+}
