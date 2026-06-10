@@ -1,0 +1,17 @@
+AppleMusic/2024/06.csv == AppleMusic/2024/06_URGENT_REPLACE.csv
+Capston/1H-FY2024.pdf == Capston/1H-FY2024 (1).pdf
+Capston/Thumbs.db == PRS/Thumbs.db == Tidal/Thumbs.db
+Hollow_Verge_catalog_one_pager (2).pdf == Hollow_Verge_catalog_one_pager.pdf == Hollow_Verge_catalog_one_pager (1).pdf
+MCPS/2023-Q2 (1).pdf == MCPS/2023-Q2.pdf
+MCPS/2025-Q2 (2).pdf == MCPS/2025-Q2.pdf
+PPL neighbouring rights/2022.pdf == PPL neighbouring rights/2022 (2).pdf
+PRS/2024-Q4_FINAL_v2.pdf == PRS/2024-Q4.pdf
+RESEND_PRS_2025-Q2_for_lena.pdf == PRS/2025-Q2.pdf
+SOCAN_2022-Q2.pdf == SOCAN (CA)/2022/Q2.pdf
+Tidal/2025-09.csv.crdownload == Tidal/2025/09.csv
+Untitled folder/.DS_Store == Capston/.DS_Store == new folder/.DS_Store == PRS/.DS_Store == Pulse confirmations/.DS_Store == TO BE FILED/.DS_Store == Untitled folder 2/.DS_Store == Amazon Music/.DS_Store == AppleMusic/.DS_Store
+_attachments_from_lena_FWD == data-room.txt == ~$splits_master.xlsx == ~$indicative_term_sheet_DRAFT.pdf == Capston/~$Capston_2H-FY2024.xlsx == PRS/~$PRS_recon_workbook.xlsx == Spotify/~$spotify_pivot_2024.xlsx == SACEM/2025-H2_AWAITING_UPLOAD.pdf == MCPS/2025-Q4_AWAITING_UPLOAD.pdf == Pulse annual summaries/~$pulse_summary_draft.xlsx == SGAE/export_FAILED.csv == Tidal/2025-13.csv == Old Spreadsheets and Stuff/Untitled spreadsheet.csv
+indicative_term_sheet_DRAFT.pdf == indicative term sheet v3 (post call) FINAL.pdf == indicative_term_sheet_v1_PRE_LOI.pdf
+lena_holiday_photo_porto_2022.jpg == scan_final.pdf
+scan0007.pdf == Document1.pdf == Untitled.pdf == Capston/2H-FY2025 (corrupt).pdf == PRS/scan_to_email_0432.pdf
+split_PE_SLOW_ENGINE.pdf == split_PE_SLOW_ENGINE_v1_PRELOI.pdf
