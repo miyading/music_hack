@@ -29,6 +29,7 @@ from pipeline.scorecard import build_scorecard
 from pipeline.requisitions import build_requisitions
 from pipeline.report import build_report
 from pipeline.dashboard import build_dashboard
+from pipeline.recon_calculator import build_recon_calculator
 
 
 def main() -> None:
@@ -47,18 +48,18 @@ def main() -> None:
 
     args.out.mkdir(parents=True, exist_ok=True)
 
-    print(f"[1/7] Manifest          {args.dataroom}")
+    print(f"[1/8] Manifest          {args.dataroom}")
     manifest = build_manifest(args.dataroom)
     print(f"      {manifest['total_files']} files · {len(manifest['duplicate_groups'])} duplicate groups · "
           f"{len(manifest['zero_byte_files'])} zero-byte · {len(manifest['future_dated'])} forward-dated")
 
-    print("[2/7] Coverage matrix")
+    print("[2/8] Coverage matrix")
     coverage = build_coverage(args.dataroom, societies_cfg)
     print(f"      {coverage['overall_coverage_pct']}% coverage · "
           f"{coverage['total_missing_statements']} statements missing · "
           f"absent societies: {coverage['fully_absent_societies'] or 'none'}")
 
-    print("[3/7] Revenue reconciliation")
+    print("[3/8] Revenue reconciliation")
     recon = build_reconciliation(args.dataroom, claims, societies_cfg)
     for y, v in sorted(recon["by_year"].items()):
         if v["claimed"]:
@@ -70,19 +71,22 @@ def main() -> None:
         print(f"      top song: {conc['top_song']} = {conc['top_song_share']:.1%} "
               f"(claimed {conc['claimed_top_song_share']:.0%})")
 
-    print("[4/7] Requirements scorecard")
+    print("[4/8] Requirements scorecard")
     scorecard = build_scorecard(requirements, manifest, coverage)
     print(f"      {scorecard['headline']}")
 
-    print("[5/7] Requisition log")
+    print("[5/8] Requisition log")
     requisitions = build_requisitions(scorecard, coverage)
     print(f"      {len(requisitions)} open requests")
 
-    print("[6/7] Stakeholder findings document")
+    print("[6/8] Stakeholder findings document")
     report_md = build_report(manifest, coverage, recon, scorecard, requisitions, claims, findings)
 
-    print("[7/7] Dashboard payload")
+    print("[7/8] Dashboard payload")
     dashboard = build_dashboard(manifest, coverage, recon, scorecard, requisitions, claims, findings)
+
+    print("[8/8] Revenue audit calculator")
+    calculator_html = build_recon_calculator(recon, claims, dashboard["generated_at"])
 
     _dump(args.out / "manifest.json", manifest)
     _dump(args.out / "coverage.json", coverage)
@@ -94,7 +98,11 @@ def main() -> None:
         w.writerows(requisitions)
     _dump(args.out / "dashboard.json", dashboard)
     (args.out / "DD_REPORT.md").write_text(report_md)
-    print(f"\nDone. Report: {args.out / 'DD_REPORT.md'} · UI payload: {args.out / 'dashboard.json'}")
+    (args.out / "reconciliation.html").write_text(calculator_html)
+    if Path("dashboard").is_dir():  # publish next to the stakeholder UI
+        Path("dashboard/reconciliation.html").write_text(calculator_html)
+    print(f"\nDone. Report: {args.out / 'DD_REPORT.md'} · UI payload: {args.out / 'dashboard.json'} "
+          f"· audit calculator: {args.out / 'reconciliation.html'}")
 
 
 def _dump(path: Path, obj) -> None:

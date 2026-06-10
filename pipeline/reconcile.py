@@ -65,6 +65,9 @@ def build_reconciliation(dataroom: Path, claims: dict, societies_cfg: dict) -> d
     settlements = []                       # (desc, amount, year, path, source)
     summary_claims = defaultdict(float)    # year -> seller summary total
     summary_items = defaultdict(list)
+    # audit trail: every dollar of verified detail traced to its source file
+    file_contrib = defaultdict(lambda: defaultdict(lambda: {"amount": 0.0, "rows": 0}))
+    gross_contrib = defaultdict(lambda: defaultdict(float))
 
     def classify(path: Path, row: dict, is_summary: bool):
         amt_col = _col(row, AMOUNT_COLS)
@@ -89,12 +92,16 @@ def build_reconciliation(dataroom: Path, claims: dict, societies_cfg: dict) -> d
 
         if rtype in GROSS_TYPES:
             label_gross[year] += amt
+            gross_contrib[year][str(path)] += amt
         elif rtype in SETTLEMENT_TYPES:
             settlements.append((desc.lower(), round(amt), year, str(path), "detail"))
         elif rtype in ACCRUED_TYPES:
             accrued[year].append({"description": desc, "amount": amt})
         else:
             detail[year] += amt
+            fc = file_contrib[year][str(path)]
+            fc["amount"] += amt
+            fc["rows"] += 1
             song_col = _col(row, SONG_COLS)
             if song_col and row[song_col]:
                 per_song[year][row[song_col].strip()] += amt
@@ -150,7 +157,41 @@ def build_reconciliation(dataroom: Path, claims: dict, societies_cfg: dict) -> d
         "double_counted_settlements": double_counted,
         "accrued_never_received": {y: v for y, v in accrued.items() if v},
         "concentration": concentration,
+        "audit": _audit_trail(file_contrib, gross_contrib, summary_items,
+                              settlement_once, by_year),
     }
+
+
+def _source_of(path: str) -> str:
+    """statements/PRS/PRS_2023-Q1.csv -> PRS ; distributors/Capston/x.csv -> Capston"""
+    parts = path.split("/")
+    return parts[1] if len(parts) > 2 else parts[0]
+
+
+def _audit_trail(file_contrib, gross_contrib, summary_items, settlement_once, by_year):
+    """Per year: every verified dollar traced to source files, grouped by
+    society/distributor, plus the seller's own summary line items - so the
+    dashboard can show exactly how the rebuilt number is computed."""
+    out = {}
+    for y in by_year:
+        sources = defaultdict(lambda: {"total": 0.0, "files": []})
+        for path, c in sorted(file_contrib.get(y, {}).items()):
+            src = _source_of(path)
+            sources[src]["total"] += c["amount"]
+            sources[src]["files"].append({"path": path,
+                                          "amount": round(c["amount"], 2),
+                                          "rows": c["rows"]})
+        out[y] = {
+            "by_source": [{"source": s, "total": round(v["total"], 2),
+                           "file_count": len(v["files"]), "files": v["files"]}
+                          for s, v in sorted(sources.items(),
+                                             key=lambda kv: -kv[1]["total"])],
+            "label_gross_files": [{"path": p, "amount": round(a, 2)}
+                                  for p, a in sorted(gross_contrib.get(y, {}).items())],
+            "settlements_counted_once": round(settlement_once.get(y, 0.0), 2),
+            "seller_summary_items": summary_items.get(y, []),
+        }
+    return out
 
 
 def _bridge(claimed, verified_low, gross, rate, double_counted, accrued_rows, year):
