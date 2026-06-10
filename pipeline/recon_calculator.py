@@ -80,7 +80,7 @@ details .files code{font-size:11px}
   <div class="card"><h2>2 · The bridge (claimed &rarr; verified)</h2>
     <div class="note">Each deduction is computed from documents in the data room, not assumed.</div>
     <table class="bridge" id="bridge"></table></div>
-  <div class="card"><h2>3 · Bottom-up rebuild (the actual 细账)</h2>
+  <div class="card"><h2>3 · Bottom-up rebuild (statement-level detail)</h2>
     <div class="note">Every statement file that sums into the verified base. Click a source to see its files.</div>
     <div id="sources"></div></div>
 </div>
