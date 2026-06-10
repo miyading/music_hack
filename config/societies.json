@@ -1,0 +1,17 @@
+{
+  "societies": {
+    "PRS":   {"cadence": "quarterly", "start": 2018, "end": 2025, "territory": "UK"},
+    "MCPS":  {"cadence": "quarterly", "start": 2018, "end": 2025, "territory": "UK"},
+    "ASCAP": {"cadence": "quarterly", "start": 2018, "end": 2025, "territory": "US"},
+    "BMI":   {"cadence": "quarterly", "start": 2018, "end": 2025, "territory": "US"},
+    "GEMA":  {"cadence": "half",      "start": 2018, "end": 2025, "territory": "DE"},
+    "SACEM": {"cadence": "half",      "start": 2018, "end": 2025, "territory": "FR"},
+    "SGAE":  {"cadence": "half",      "start": 2018, "end": 2025, "territory": "ES"},
+    "SOCAN": {"cadence": "quarterly", "start": 2018, "end": 2025, "territory": "CA"},
+    "PPL":   {"cadence": "yearly",    "start": 2018, "end": 2025, "territory": "UK"},
+    "HFA":   {"cadence": "quarterly", "start": 2018, "end": 2020, "territory": "US mechanical (pre-MLC)"},
+    "MLC":   {"cadence": "quarterly", "start": 2021, "end": 2025, "territory": "US mechanical"}
+  },
+  "distributors": ["Spotify", "Apple", "Amazon", "Tidal", "Capston", "Atlantico"],
+  "statement_roots": ["statements", "distributors"]
+}

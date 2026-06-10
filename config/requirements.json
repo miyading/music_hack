@@ -1,0 +1,195 @@
+[
+  {
+    "id": 1,
+    "name": "Executed chain of title (1998->2017->today) + schedules",
+    "type": "files",
+    "patterns": ["chain_of_title/.*(deed|assignment)", "assignment_deed"],
+    "invalid_pattern": "draft|unexecuted|unsigned",
+    "also_require": [{"pattern": "schedule", "note": "schedules of assigned works absent"}],
+    "all_invalid_status": "MISSING",
+    "min_count": 1,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Executed 2017 Vermillion->Northbridge deed with all schedules and annexes"
+  },
+  {
+    "id": 2,
+    "name": "Master purchase agreement (Vermillion)",
+    "type": "files",
+    "patterns": ["master_purchase|purchase_agreement.*vermillion|vermillion.*purchase"],
+    "min_count": 1,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Vermillion master purchase agreement referenced in the 2017 deed"
+  },
+  {
+    "id": 3,
+    "name": "Masters assignment (Reston Vance / Capston, 2014)",
+    "type": "files",
+    "patterns": ["masters_assignment|reston_vance"],
+    "invalid_pattern": "draft|unexecuted|unsigned",
+    "all_invalid_status": "MISSING",
+    "min_count": 1,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Executed 2014 Reston Vance / Capston masters assignment"
+  },
+  {
+    "id": 4,
+    "name": "Signed split sheets, all works",
+    "type": "files",
+    "patterns": ["splits?/.*split_sheet"],
+    "invalid_pattern": "unsigned|draft|awaiting",
+    "min_count": 32,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Signed split sheets for every work; resolve conflicting Quiet Engine versions"
+  },
+  {
+    "id": 5,
+    "name": "Writer agreements (5 third-party writers)",
+    "type": "files",
+    "patterns": ["writer_agreement"],
+    "min_count": 5,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Writer agreements for all five third-party writers"
+  },
+  {
+    "id": 6,
+    "name": "Copyright registrations",
+    "type": "files",
+    "patterns": ["copyright_registration|registration_certificate"],
+    "min_count": 32,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P1",
+    "request": "US Copyright Office registration certificates for all works"
+  },
+  {
+    "id": 7,
+    "name": "PRO registrations matching split sheets",
+    "type": "files",
+    "patterns": ["pro_registrations?/", "registration_extract"],
+    "min_count": 32,
+    "counterparty": "Collection societies",
+    "priority": "P1",
+    "request": "Registration extracts for all works; correct Tate / Iqbal mismatches"
+  },
+  {
+    "id": 8,
+    "name": "Probate / succession (Petrov, Akhtar estates)",
+    "type": "files",
+    "patterns": ["estates?/|probate"],
+    "also_require": [{"pattern": "grant_of_probate|letters_of_administration", "note": "no grant of probate or letters of administration"}],
+    "min_count": 1,
+    "counterparty": "Petrov & Akhtar estates",
+    "priority": "P1",
+    "request": "Grant of probate / letters of administration; verified payment instructions with callback verification"
+  },
+  {
+    "id": 9,
+    "name": "Sample clearance (Bug Music / Hammond)",
+    "type": "files",
+    "patterns": ["sample|hammond|side_letter.*2001"],
+    "invalid_pattern": "illegible|fax",
+    "all_invalid_status": "MISSING",
+    "min_count": 1,
+    "counterparty": "Bug Music (now BMG)",
+    "priority": "P1",
+    "request": "Legible copy of the 12 Apr 2001 Hammond side letter, including any escalation clause"
+  },
+  {
+    "id": 10,
+    "name": "Sub-publishing agreements + current status",
+    "type": "files",
+    "patterns": ["subpub|sub_publishing|sub-publishing"],
+    "also_require": [{"pattern": "renewal|termination", "note": "renewals/terminations absent"}],
+    "min_count": 2,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P1",
+    "request": "All sub-publishing agreements with current renewal/termination status"
+  },
+  {
+    "id": 11,
+    "name": "Sync agency appointment in force",
+    "type": "files",
+    "patterns": ["sync.*(appointment|agency)|pulse"],
+    "invalid_pattern": "unsigned|expired|draft",
+    "all_invalid_status": "PARTIAL",
+    "min_count": 1,
+    "counterparty": "Pulse",
+    "priority": "P2",
+    "request": "Post-2021 authority documentation; full licence schedule"
+  },
+  {
+    "id": 12,
+    "name": "Complete PRO statements 2018-2025, all societies",
+    "type": "coverage",
+    "societies": ["PRS", "MCPS", "ASCAP", "BMI", "GEMA", "SACEM", "SGAE", "SOCAN", "PPL", "HFA"],
+    "counterparty": "Collection societies",
+    "priority": "P1",
+    "request": "Duplicate statements for all gap periods (societies reissue on request)"
+  },
+  {
+    "id": 13,
+    "name": "US mechanical statements 2021+ (MLC)",
+    "type": "coverage",
+    "societies": ["MLC"],
+    "counterparty": "MLC",
+    "priority": "P1",
+    "request": "Full MLC statement history 2021 onward"
+  },
+  {
+    "id": 14,
+    "name": "Distributor statements + advance side letters",
+    "type": "files",
+    "patterns": ["distributors/.*\\.csv"],
+    "also_require": [{"pattern": "capston.*(advance|side_letter)|advance_side_letter", "note": "$120k advance side letter missing; silent recoupments"}],
+    "min_count": 20,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Capston $120k advance side letter and recoupment status"
+  },
+  {
+    "id": 15,
+    "name": "Settlement & one-off income confirmations",
+    "type": "files",
+    "patterns": ["settlement.*(memo|confirmation)"],
+    "min_count": 1,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "BMW $42k settlement memo and confirmations for all one-off income"
+  },
+  {
+    "id": 16,
+    "name": "Per-song earnings ledger",
+    "type": "files",
+    "patterns": ["per_song.*ledger|song_ledger|earnings_ledger"],
+    "min_count": 1,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Per-song earnings ledger so concentration can be fully verified"
+  },
+  {
+    "id": 17,
+    "name": "Litigation / claims register",
+    "type": "files",
+    "patterns": ["litigation|claims_register"],
+    "min_count": 1,
+    "counterparty": "Seller (Lena Kowalski)",
+    "priority": "P0",
+    "request": "Litigation / claims register (active claims exist only in correspondence)"
+  },
+  {
+    "id": 18,
+    "name": "Executed term sheet / deal documents",
+    "type": "files",
+    "patterns": ["term_sheet"],
+    "invalid_pattern": "draft|v1|unsigned",
+    "all_invalid_status": "PARTIAL",
+    "min_count": 1,
+    "counterparty": "Seller's counsel (Reeves & Patel)",
+    "priority": "P0",
+    "request": "Genuinely executed term sheet (three identical copies on file, none executed)"
+  }
+]
