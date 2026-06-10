@@ -150,9 +150,9 @@ render();
 """
 
 
-def build_recon_calculator(recon: dict, claims: dict, generated: str) -> str:
+def build_recon_payload(recon: dict, claims: dict, generated: str) -> dict:
     years = sorted(y for y, v in recon["by_year"].items() if v["claimed"])
-    payload = {
+    return {
         "deal": claims.get("deal_name", "Catalog"),
         "seller": claims.get("seller", ""),
         "generated": generated,
@@ -161,7 +161,25 @@ def build_recon_calculator(recon: dict, claims: dict, generated: str) -> str:
         "by_year": {str(y): recon["by_year"][y] for y in years},
         "audit": {str(y): recon["audit"][y] for y in years},
     }
-    # JS uses numeric keys via template strings, so re-key to plain numbers
+
+
+def build_recon_calculator(recon: dict, claims: dict, generated: str) -> str:
+    payload = build_recon_payload(recon, claims, generated)
     page = _PAGE.replace("__DATA__", json.dumps(payload))
     return page.replace("DATA.by_year[year]", "DATA.by_year[String(year)]") \
                .replace("DATA.audit[year]", "DATA.audit[String(year)]")
+
+
+_REDIRECT = """<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0;url=index.html?view=audit">
+<script>location.replace('index.html?view=audit')</script>
+<title>Redirecting…</title>
+</head><body></body></html>
+"""
+
+
+def build_recon_redirect() -> str:
+    """Legacy standalone URL forwards into the integrated dashboard view."""
+    return _REDIRECT

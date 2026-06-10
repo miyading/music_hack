@@ -1,0 +1,790 @@
+{
+  "deal": "Hollow Verge Publishing Catalog",
+  "seller": "Northbridge Catalog Partners LLC (Delaware)",
+  "generated": "2026-06-10T15:35:16",
+  "rate": 0.18,
+  "years": [
+    2023,
+    2024
+  ],
+  "by_year": {
+    "2023": {
+      "statement_detail": 470000.66,
+      "settlements_counted_once": 0.0,
+      "label_gross_receipts": 305999.98,
+      "label_royalty_entitlement": 55080.0,
+      "accrued_excluded": 0,
+      "verified_low": 470000.66,
+      "verified_high": 525080.66,
+      "claimed": 820000,
+      "overstatement_pct_low": 56.2,
+      "overstatement_pct_high": 74.5,
+      "bridge": {
+        "gap": 349999.34,
+        "items": [
+          {
+            "item": "Label gross receipts booked as publishing revenue (publisher entitled to ~18% royalty only)",
+            "amount": 250919.98
+          },
+          {
+            "item": "Settlement double-counted: bmw sync settlement",
+            "amount": 42000
+          }
+        ],
+        "explained": 292919.98,
+        "residual_unexplained": 57079.36
+      }
+    },
+    "2024": {
+      "statement_detail": 451999.48,
+      "settlements_counted_once": 0.0,
+      "label_gross_receipts": 299999.92,
+      "label_royalty_entitlement": 53999.99,
+      "accrued_excluded": 0,
+      "verified_low": 451999.48,
+      "verified_high": 505999.47,
+      "claimed": 785000,
+      "overstatement_pct_low": 55.1,
+      "overstatement_pct_high": 73.7,
+      "bridge": {
+        "gap": 333000.52,
+        "items": [
+          {
+            "item": "Label gross receipts booked as publishing revenue (publisher entitled to ~18% royalty only)",
+            "amount": 245999.93
+          }
+        ],
+        "explained": 245999.93,
+        "residual_unexplained": 87000.59
+      }
+    }
+  },
+  "audit": {
+    "2023": {
+      "by_source": [
+        {
+          "source": "ASCAP",
+          "total": 106179.44,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q1.csv",
+              "amount": 26544.86,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q2.csv",
+              "amount": 26544.86,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q3.csv",
+              "amount": 26544.86,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q4.csv",
+              "amount": 26544.86,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "PRS",
+          "total": 103056.81,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/PRS/PRS_2023-Q1.csv",
+              "amount": 34352.27,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2023-Q3.csv",
+              "amount": 34352.27,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2023-Q4.csv",
+              "amount": 34352.27,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "BMI",
+          "total": 60897.42,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/BMI/BMI_2023-Q2.csv",
+              "amount": 20299.14,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2023-Q3.csv",
+              "amount": 20299.14,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2023-Q4.csv",
+              "amount": 20299.14,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SACEM",
+          "total": 43721.12,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/SACEM/SACEM_2023-H1.csv",
+              "amount": 21860.56,
+              "rows": 32
+            },
+            {
+              "path": "statements/SACEM/SACEM_2023-H2.csv",
+              "amount": 21860.56,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "MCPS",
+          "total": 37475.36,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/MCPS/MCPS_2023-Q1.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2023-Q2.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2023-Q3.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2023-Q4.csv",
+              "amount": 9368.84,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Spotify",
+          "total": 31229.68,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q1.csv",
+              "amount": 7807.42,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q2.csv",
+              "amount": 7807.42,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q3.csv",
+              "amount": 7807.42,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q4.csv",
+              "amount": 7807.42,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SGAE",
+          "total": 18737.68,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/SGAE/SGAE_2023-H1.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/SGAE/SGAE_2023-H2.csv",
+              "amount": 9368.84,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SOCAN",
+          "total": 18737.16,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/SOCAN/SOCAN_2023-Q1.csv",
+              "amount": 6245.72,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2023-Q2.csv",
+              "amount": 6245.72,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2023-Q4.csv",
+              "amount": 6245.72,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Apple",
+          "total": 18737.16,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Apple/Apple_2023-Q1.csv",
+              "amount": 4684.29,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2023-Q2.csv",
+              "amount": 4684.29,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2023-Q3.csv",
+              "amount": 4684.29,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2023-Q4.csv",
+              "amount": 4684.29,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "PPL",
+          "total": 12491.71,
+          "file_count": 1,
+          "files": [
+            {
+              "path": "statements/PPL/PPL_2023.csv",
+              "amount": 12491.71,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Amazon",
+          "total": 12491.4,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q1.csv",
+              "amount": 3122.85,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q2.csv",
+              "amount": 3122.85,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q3.csv",
+              "amount": 3122.85,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q4.csv",
+              "amount": 3122.85,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Tidal",
+          "total": 6245.72,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q1.csv",
+              "amount": 1561.43,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q2.csv",
+              "amount": 1561.43,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q3.csv",
+              "amount": 1561.43,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q4.csv",
+              "amount": 1561.43,
+              "rows": 32
+            }
+          ]
+        }
+      ],
+      "label_gross_files": [
+        {
+          "path": "distributors/Capston/Capston_label_receipts_CY2023.csv",
+          "amount": 305999.98
+        }
+      ],
+      "settlements_counted_once": 0.0,
+      "seller_summary_items": [
+        {
+          "description": "PRS performance + mechanical",
+          "type": "society_total",
+          "amount": 131000.0
+        },
+        {
+          "description": "ASCAP performance",
+          "type": "society_total",
+          "amount": 89000.0
+        },
+        {
+          "description": "BMI performance",
+          "type": "society_total",
+          "amount": 62000.0
+        },
+        {
+          "description": "SACEM",
+          "type": "society_total",
+          "amount": 34000.0
+        },
+        {
+          "description": "GEMA (estimate - statements unavailable)",
+          "type": "society_total",
+          "amount": 18000.0
+        },
+        {
+          "description": "MCPS",
+          "type": "society_total",
+          "amount": 27000.0
+        },
+        {
+          "description": "SGAE",
+          "type": "society_total",
+          "amount": 13000.0
+        },
+        {
+          "description": "SOCAN",
+          "type": "society_total",
+          "amount": 17000.0
+        },
+        {
+          "description": "PPL neighbouring rights",
+          "type": "society_total",
+          "amount": 8000.0
+        },
+        {
+          "description": "US mechanical (HFA/MLC est.)",
+          "type": "society_total",
+          "amount": 25000.0
+        },
+        {
+          "description": "Digital distributors",
+          "type": "society_total",
+          "amount": 18000.0
+        },
+        {
+          "description": "Capston Records label receipts",
+          "type": "label_gross",
+          "amount": 306000.0
+        },
+        {
+          "description": "BMW sync settlement",
+          "type": "settlement",
+          "amount": 42000.0
+        },
+        {
+          "description": "PRS black-box distribution (estimated)",
+          "type": "accrued",
+          "amount": 30000.0
+        }
+      ]
+    },
+    "2024": {
+      "by_source": [
+        {
+          "source": "PRS",
+          "total": 95006.28,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/PRS/PRS_2024-Q1.csv",
+              "amount": 31668.76,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2024-Q2.csv",
+              "amount": 31668.76,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2024-Q4.csv",
+              "amount": 31668.76,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "ASCAP",
+          "total": 73413.9,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/ASCAP/ASCAP_2024-Q2.csv",
+              "amount": 24471.3,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2024-Q3.csv",
+              "amount": 24471.3,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2024-Q4.csv",
+              "amount": 24471.3,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "BMI",
+          "total": 56140.08,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/BMI/BMI_2024-Q1.csv",
+              "amount": 18713.36,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2024-Q3.csv",
+              "amount": 18713.36,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2024-Q4.csv",
+              "amount": 18713.36,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "GEMA",
+          "total": 46063.64,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/GEMA/GEMA_2024-H1.csv",
+              "amount": 23031.82,
+              "rows": 32
+            },
+            {
+              "path": "statements/GEMA/GEMA_2024-H2.csv",
+              "amount": 23031.82,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SACEM",
+          "total": 40305.7,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/SACEM/SACEM_2024-H1.csv",
+              "amount": 20152.85,
+              "rows": 32
+            },
+            {
+              "path": "statements/SACEM/SACEM_2024-H2.csv",
+              "amount": 20152.85,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "MCPS",
+          "total": 34547.72,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/MCPS/MCPS_2024-Q1.csv",
+              "amount": 8636.93,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2024-Q2.csv",
+              "amount": 8636.93,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2024-Q3.csv",
+              "amount": 8636.93,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2024-Q4.csv",
+              "amount": 8636.93,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Spotify",
+          "total": 28789.8,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q1.csv",
+              "amount": 7197.45,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q2.csv",
+              "amount": 7197.45,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q3.csv",
+              "amount": 7197.45,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q4.csv",
+              "amount": 7197.45,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SOCAN",
+          "total": 23031.88,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q1.csv",
+              "amount": 5757.97,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q2.csv",
+              "amount": 5757.97,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q3.csv",
+              "amount": 5757.97,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q4.csv",
+              "amount": 5757.97,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Apple",
+          "total": 17273.84,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Apple/Apple_2024-Q1.csv",
+              "amount": 4318.46,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2024-Q2.csv",
+              "amount": 4318.46,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2024-Q3.csv",
+              "amount": 4318.46,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2024-Q4.csv",
+              "amount": 4318.46,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "PPL",
+          "total": 11515.91,
+          "file_count": 1,
+          "files": [
+            {
+              "path": "statements/PPL/PPL_2024.csv",
+              "amount": 11515.91,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Amazon",
+          "total": 11515.88,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q1.csv",
+              "amount": 2878.97,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q2.csv",
+              "amount": 2878.97,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q3.csv",
+              "amount": 2878.97,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q4.csv",
+              "amount": 2878.97,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SGAE",
+          "total": 8636.93,
+          "file_count": 1,
+          "files": [
+            {
+              "path": "statements/SGAE/SGAE_2024-H1.csv",
+              "amount": 8636.93,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Tidal",
+          "total": 5757.92,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q1.csv",
+              "amount": 1439.48,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q2.csv",
+              "amount": 1439.48,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q3.csv",
+              "amount": 1439.48,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q4.csv",
+              "amount": 1439.48,
+              "rows": 32
+            }
+          ]
+        }
+      ],
+      "label_gross_files": [
+        {
+          "path": "distributors/Capston/Capston_label_receipts_CY2024.csv",
+          "amount": 299999.92
+        }
+      ],
+      "settlements_counted_once": 0.0,
+      "seller_summary_items": [
+        {
+          "description": "PRS performance + mechanical",
+          "type": "society_total",
+          "amount": 124000.0
+        },
+        {
+          "description": "ASCAP performance",
+          "type": "society_total",
+          "amount": 84000.0
+        },
+        {
+          "description": "BMI performance",
+          "type": "society_total",
+          "amount": 59000.0
+        },
+        {
+          "description": "SACEM",
+          "type": "society_total",
+          "amount": 33000.0
+        },
+        {
+          "description": "GEMA (estimate)",
+          "type": "society_total",
+          "amount": 17000.0
+        },
+        {
+          "description": "MCPS",
+          "type": "society_total",
+          "amount": 25000.0
+        },
+        {
+          "description": "SGAE",
+          "type": "society_total",
+          "amount": 12000.0
+        },
+        {
+          "description": "SOCAN",
+          "type": "society_total",
+          "amount": 16000.0
+        },
+        {
+          "description": "PPL neighbouring rights",
+          "type": "society_total",
+          "amount": 8000.0
+        },
+        {
+          "description": "US mechanical (est.)",
+          "type": "society_total",
+          "amount": 24000.0
+        },
+        {
+          "description": "Digital distributors",
+          "type": "society_total",
+          "amount": 19000.0
+        },
+        {
+          "description": "Capston Records label receipts",
+          "type": "label_gross",
+          "amount": 300000.0
+        },
+        {
+          "description": "PRS black-box (anticipated)",
+          "type": "accrued",
+          "amount": 24000.0
+        },
+        {
+          "description": "Pulse sync pipeline (anticipated)",
+          "type": "accrued",
+          "amount": 40000.0
+        }
+      ]
+    }
+  }
+}

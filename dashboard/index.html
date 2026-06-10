@@ -108,6 +108,36 @@
   .pp.P0{background:#ffe9e0;color:var(--orange)} .pp.P1{background:#f3e6fe;color:var(--purple)} .pp.P2{background:#f1f7d9;color:#5d8a00}
   .ingest{margin-top:18px;background:var(--black);color:#fff;border-radius:16px;padding:14px;font-size:11.5px;line-height:1.6}
   .ingest b{color:var(--lime)}
+
+  /* Revenue audit (integrated view) */
+  .view[hidden]{display:none!important}
+  .audit-formula{margin-bottom:22px;padding:14px 18px;background:var(--soft);border:1.5px dashed var(--purple);
+                border-radius:18px;font-size:12.5px;line-height:1.55}
+  .audit-formula b{color:var(--purple)}
+  .audit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:1100px){.audit-grid{grid-template-columns:1fr}}
+  .audit-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .audit-card h3{font-size:12px;margin:0;padding:12px 16px;border-bottom:1px solid var(--line);
+                 background:var(--soft);text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+  .audit-card .note{padding:10px 16px;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}
+  .audit-card table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .audit-card td,.audit-card th{padding:8px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  .audit-card td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .audit-card tr.flag td{background:#fff5f0}
+  .audit-card tr.total td{font-weight:800;background:var(--soft)}
+  .audit-card .bridge td.minus{color:var(--orange)} .audit-card .bridge td.plus{color:#5d8a00}
+  .audit-badge{display:inline-block;font-size:10px;font-weight:700;border-radius:8px;padding:2px 8px;margin-left:6px}
+  .audit-badge.gross{background:#ffe9e0;color:var(--orange)}
+  .audit-badge.dup{background:#f3e6fe;color:var(--purple)}
+  .audit-badge.accr{background:#f1f7d9;color:#5d8a00}
+  .audit-badge.ok{background:#e2f3e9;color:#5d8a00}
+  .audit-card details{border-bottom:1px solid var(--line)}
+  .audit-card details summary{padding:9px 16px;cursor:pointer;display:flex;justify-content:space-between;font-weight:600;font-size:12.5px}
+  .audit-card details summary .amt{font-variant-numeric:tabular-nums}
+  .audit-card details .files{padding:0 16px 10px;color:var(--muted);font-size:11.5px}
+  .audit-card details .files div{display:flex;justify-content:space-between;gap:10px;padding:2px 0}
+  .audit-card details .files code{font-size:10.5px;background:var(--soft);border-radius:6px;padding:1px 6px}
+  .top .audit-years{margin:0}
 </style>
 </head>
 <body>
@@ -115,34 +145,63 @@
 
   <aside>
     <div class="logo"><span class="bars"><i></i><i></i><i></i></span> Diligence Desk</div>
-    <nav class="nav">
-      <a class="active" href="#"><span class="dot"></span>Dashboard</a>
-      <a href="reconciliation.html"><span class="dot"></span>Revenue audit</a>
-      <a href="#"><span class="dot"></span>Coverage matrix</a>
-      <a href="#"><span class="dot"></span>Manifest</a>
-      <a href="#"><span class="dot"></span>Requisitions</a>
-      <a href="#"><span class="dot"></span>Settings</a>
+    <nav class="nav" id="nav">
+      <a class="active" href="#" data-view="dashboard"><span class="dot"></span>Dashboard</a>
+      <a href="#" data-view="audit"><span class="dot"></span>Revenue audit</a>
+      <a href="#" data-view="dashboard"><span class="dot"></span>Coverage matrix</a>
+      <a href="#" data-view="dashboard"><span class="dot"></span>Manifest</a>
+      <a href="#" data-view="dashboard"><span class="dot"></span>Requisitions</a>
+      <a href="#" data-view="dashboard"><span class="dot"></span>Settings</a>
     </nav>
     <div class="side-note"><b>Repeatable by design.</b><br>Drop new documents into the data room, re-run the pipeline — this dashboard re-reads <b>findings.json</b> and re-scores automatically.</div>
   </aside>
 
   <main>
-    <div class="top">
-      <h1 id="title">Hollow Verge — Catalog Diligence</h1>
-      <button class="btn" onclick="window.print()">Export findings</button>
+    <div id="view-dashboard" class="view">
+      <div class="top">
+        <h1 id="title">Hollow Verge — Catalog Diligence</h1>
+        <button class="btn" onclick="window.print()">Export findings</button>
+      </div>
+      <div class="sub" id="meta"></div>
+
+      <div class="personas" id="personas"></div>
+
+      <div class="cats" id="cats"></div>
+      <div class="kpis" id="kpis"></div>
+
+      <div class="findhead">
+        <h2>Findings <span id="fcount" style="color:var(--muted);font-weight:600;font-size:13px"></span></h2>
+        <div class="chips" id="sevchips"></div>
+      </div>
+      <div id="list"></div>
     </div>
-    <div class="sub" id="meta"></div>
 
-    <div class="personas" id="personas"></div>
-
-    <div class="cats" id="cats"></div>
-    <div class="kpis" id="kpis"></div>
-
-    <div class="findhead">
-      <h2>Findings <span id="fcount" style="color:var(--muted);font-weight:600;font-size:13px"></span></h2>
-      <div class="chips" id="sevchips"></div>
+    <div id="view-audit" class="view" hidden>
+      <div class="top">
+        <h1>Revenue audit calculator</h1>
+        <div class="personas audit-years" id="audit-years"></div>
+      </div>
+      <div class="sub" id="audit-meta"></div>
+      <div class="kpis" id="audit-kpis"></div>
+      <div class="audit-formula" id="audit-formula"></div>
+      <div class="audit-grid">
+        <div class="audit-card">
+          <h3>1 · Seller's summary (as claimed)</h3>
+          <div class="note">The seller's own revenue summary, line by line. Highlighted rows are the inflation.</div>
+          <table id="audit-summary"></table>
+        </div>
+        <div class="audit-card">
+          <h3>2 · The bridge (claimed &rarr; verified)</h3>
+          <div class="note">Each deduction is computed from documents in the data room, not assumed.</div>
+          <table class="bridge" id="audit-bridge"></table>
+        </div>
+        <div class="audit-card">
+          <h3>3 · Bottom-up rebuild (statement-level detail)</h3>
+          <div class="note">Every statement file that sums into the verified base. Click a source to see its files.</div>
+          <div id="audit-sources"></div>
+        </div>
+      </div>
     </div>
-    <div id="list"></div>
   </main>
 
   <div class="rail">
@@ -154,6 +213,796 @@
 
 </div>
 
+<script id="recon-data" type="application/json">{
+  "deal": "Hollow Verge Publishing Catalog",
+  "seller": "Northbridge Catalog Partners LLC (Delaware)",
+  "generated": "2026-06-10T15:35:16",
+  "rate": 0.18,
+  "years": [
+    2023,
+    2024
+  ],
+  "by_year": {
+    "2023": {
+      "statement_detail": 470000.66,
+      "settlements_counted_once": 0.0,
+      "label_gross_receipts": 305999.98,
+      "label_royalty_entitlement": 55080.0,
+      "accrued_excluded": 0,
+      "verified_low": 470000.66,
+      "verified_high": 525080.66,
+      "claimed": 820000,
+      "overstatement_pct_low": 56.2,
+      "overstatement_pct_high": 74.5,
+      "bridge": {
+        "gap": 349999.34,
+        "items": [
+          {
+            "item": "Label gross receipts booked as publishing revenue (publisher entitled to ~18% royalty only)",
+            "amount": 250919.98
+          },
+          {
+            "item": "Settlement double-counted: bmw sync settlement",
+            "amount": 42000
+          }
+        ],
+        "explained": 292919.98,
+        "residual_unexplained": 57079.36
+      }
+    },
+    "2024": {
+      "statement_detail": 451999.48,
+      "settlements_counted_once": 0.0,
+      "label_gross_receipts": 299999.92,
+      "label_royalty_entitlement": 53999.99,
+      "accrued_excluded": 0,
+      "verified_low": 451999.48,
+      "verified_high": 505999.47,
+      "claimed": 785000,
+      "overstatement_pct_low": 55.1,
+      "overstatement_pct_high": 73.7,
+      "bridge": {
+        "gap": 333000.52,
+        "items": [
+          {
+            "item": "Label gross receipts booked as publishing revenue (publisher entitled to ~18% royalty only)",
+            "amount": 245999.93
+          }
+        ],
+        "explained": 245999.93,
+        "residual_unexplained": 87000.59
+      }
+    }
+  },
+  "audit": {
+    "2023": {
+      "by_source": [
+        {
+          "source": "ASCAP",
+          "total": 106179.44,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q1.csv",
+              "amount": 26544.86,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q2.csv",
+              "amount": 26544.86,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q3.csv",
+              "amount": 26544.86,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2023-Q4.csv",
+              "amount": 26544.86,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "PRS",
+          "total": 103056.81,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/PRS/PRS_2023-Q1.csv",
+              "amount": 34352.27,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2023-Q3.csv",
+              "amount": 34352.27,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2023-Q4.csv",
+              "amount": 34352.27,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "BMI",
+          "total": 60897.42,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/BMI/BMI_2023-Q2.csv",
+              "amount": 20299.14,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2023-Q3.csv",
+              "amount": 20299.14,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2023-Q4.csv",
+              "amount": 20299.14,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SACEM",
+          "total": 43721.12,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/SACEM/SACEM_2023-H1.csv",
+              "amount": 21860.56,
+              "rows": 32
+            },
+            {
+              "path": "statements/SACEM/SACEM_2023-H2.csv",
+              "amount": 21860.56,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "MCPS",
+          "total": 37475.36,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/MCPS/MCPS_2023-Q1.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2023-Q2.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2023-Q3.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2023-Q4.csv",
+              "amount": 9368.84,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Spotify",
+          "total": 31229.68,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q1.csv",
+              "amount": 7807.42,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q2.csv",
+              "amount": 7807.42,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q3.csv",
+              "amount": 7807.42,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2023-Q4.csv",
+              "amount": 7807.42,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SGAE",
+          "total": 18737.68,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/SGAE/SGAE_2023-H1.csv",
+              "amount": 9368.84,
+              "rows": 32
+            },
+            {
+              "path": "statements/SGAE/SGAE_2023-H2.csv",
+              "amount": 9368.84,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SOCAN",
+          "total": 18737.16,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/SOCAN/SOCAN_2023-Q1.csv",
+              "amount": 6245.72,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2023-Q2.csv",
+              "amount": 6245.72,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2023-Q4.csv",
+              "amount": 6245.72,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Apple",
+          "total": 18737.16,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Apple/Apple_2023-Q1.csv",
+              "amount": 4684.29,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2023-Q2.csv",
+              "amount": 4684.29,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2023-Q3.csv",
+              "amount": 4684.29,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2023-Q4.csv",
+              "amount": 4684.29,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "PPL",
+          "total": 12491.71,
+          "file_count": 1,
+          "files": [
+            {
+              "path": "statements/PPL/PPL_2023.csv",
+              "amount": 12491.71,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Amazon",
+          "total": 12491.4,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q1.csv",
+              "amount": 3122.85,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q2.csv",
+              "amount": 3122.85,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q3.csv",
+              "amount": 3122.85,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2023-Q4.csv",
+              "amount": 3122.85,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Tidal",
+          "total": 6245.72,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q1.csv",
+              "amount": 1561.43,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q2.csv",
+              "amount": 1561.43,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q3.csv",
+              "amount": 1561.43,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2023-Q4.csv",
+              "amount": 1561.43,
+              "rows": 32
+            }
+          ]
+        }
+      ],
+      "label_gross_files": [
+        {
+          "path": "distributors/Capston/Capston_label_receipts_CY2023.csv",
+          "amount": 305999.98
+        }
+      ],
+      "settlements_counted_once": 0.0,
+      "seller_summary_items": [
+        {
+          "description": "PRS performance + mechanical",
+          "type": "society_total",
+          "amount": 131000.0
+        },
+        {
+          "description": "ASCAP performance",
+          "type": "society_total",
+          "amount": 89000.0
+        },
+        {
+          "description": "BMI performance",
+          "type": "society_total",
+          "amount": 62000.0
+        },
+        {
+          "description": "SACEM",
+          "type": "society_total",
+          "amount": 34000.0
+        },
+        {
+          "description": "GEMA (estimate - statements unavailable)",
+          "type": "society_total",
+          "amount": 18000.0
+        },
+        {
+          "description": "MCPS",
+          "type": "society_total",
+          "amount": 27000.0
+        },
+        {
+          "description": "SGAE",
+          "type": "society_total",
+          "amount": 13000.0
+        },
+        {
+          "description": "SOCAN",
+          "type": "society_total",
+          "amount": 17000.0
+        },
+        {
+          "description": "PPL neighbouring rights",
+          "type": "society_total",
+          "amount": 8000.0
+        },
+        {
+          "description": "US mechanical (HFA/MLC est.)",
+          "type": "society_total",
+          "amount": 25000.0
+        },
+        {
+          "description": "Digital distributors",
+          "type": "society_total",
+          "amount": 18000.0
+        },
+        {
+          "description": "Capston Records label receipts",
+          "type": "label_gross",
+          "amount": 306000.0
+        },
+        {
+          "description": "BMW sync settlement",
+          "type": "settlement",
+          "amount": 42000.0
+        },
+        {
+          "description": "PRS black-box distribution (estimated)",
+          "type": "accrued",
+          "amount": 30000.0
+        }
+      ]
+    },
+    "2024": {
+      "by_source": [
+        {
+          "source": "PRS",
+          "total": 95006.28,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/PRS/PRS_2024-Q1.csv",
+              "amount": 31668.76,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2024-Q2.csv",
+              "amount": 31668.76,
+              "rows": 32
+            },
+            {
+              "path": "statements/PRS/PRS_2024-Q4.csv",
+              "amount": 31668.76,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "ASCAP",
+          "total": 73413.9,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/ASCAP/ASCAP_2024-Q2.csv",
+              "amount": 24471.3,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2024-Q3.csv",
+              "amount": 24471.3,
+              "rows": 32
+            },
+            {
+              "path": "statements/ASCAP/ASCAP_2024-Q4.csv",
+              "amount": 24471.3,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "BMI",
+          "total": 56140.08,
+          "file_count": 3,
+          "files": [
+            {
+              "path": "statements/BMI/BMI_2024-Q1.csv",
+              "amount": 18713.36,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2024-Q3.csv",
+              "amount": 18713.36,
+              "rows": 32
+            },
+            {
+              "path": "statements/BMI/BMI_2024-Q4.csv",
+              "amount": 18713.36,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "GEMA",
+          "total": 46063.64,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/GEMA/GEMA_2024-H1.csv",
+              "amount": 23031.82,
+              "rows": 32
+            },
+            {
+              "path": "statements/GEMA/GEMA_2024-H2.csv",
+              "amount": 23031.82,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SACEM",
+          "total": 40305.7,
+          "file_count": 2,
+          "files": [
+            {
+              "path": "statements/SACEM/SACEM_2024-H1.csv",
+              "amount": 20152.85,
+              "rows": 32
+            },
+            {
+              "path": "statements/SACEM/SACEM_2024-H2.csv",
+              "amount": 20152.85,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "MCPS",
+          "total": 34547.72,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/MCPS/MCPS_2024-Q1.csv",
+              "amount": 8636.93,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2024-Q2.csv",
+              "amount": 8636.93,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2024-Q3.csv",
+              "amount": 8636.93,
+              "rows": 32
+            },
+            {
+              "path": "statements/MCPS/MCPS_2024-Q4.csv",
+              "amount": 8636.93,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Spotify",
+          "total": 28789.8,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q1.csv",
+              "amount": 7197.45,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q2.csv",
+              "amount": 7197.45,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q3.csv",
+              "amount": 7197.45,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Spotify/Spotify_2024-Q4.csv",
+              "amount": 7197.45,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SOCAN",
+          "total": 23031.88,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q1.csv",
+              "amount": 5757.97,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q2.csv",
+              "amount": 5757.97,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q3.csv",
+              "amount": 5757.97,
+              "rows": 32
+            },
+            {
+              "path": "statements/SOCAN/SOCAN_2024-Q4.csv",
+              "amount": 5757.97,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Apple",
+          "total": 17273.84,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Apple/Apple_2024-Q1.csv",
+              "amount": 4318.46,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2024-Q2.csv",
+              "amount": 4318.46,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2024-Q3.csv",
+              "amount": 4318.46,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Apple/Apple_2024-Q4.csv",
+              "amount": 4318.46,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "PPL",
+          "total": 11515.91,
+          "file_count": 1,
+          "files": [
+            {
+              "path": "statements/PPL/PPL_2024.csv",
+              "amount": 11515.91,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Amazon",
+          "total": 11515.88,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q1.csv",
+              "amount": 2878.97,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q2.csv",
+              "amount": 2878.97,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q3.csv",
+              "amount": 2878.97,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Amazon/Amazon_2024-Q4.csv",
+              "amount": 2878.97,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "SGAE",
+          "total": 8636.93,
+          "file_count": 1,
+          "files": [
+            {
+              "path": "statements/SGAE/SGAE_2024-H1.csv",
+              "amount": 8636.93,
+              "rows": 32
+            }
+          ]
+        },
+        {
+          "source": "Tidal",
+          "total": 5757.92,
+          "file_count": 4,
+          "files": [
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q1.csv",
+              "amount": 1439.48,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q2.csv",
+              "amount": 1439.48,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q3.csv",
+              "amount": 1439.48,
+              "rows": 32
+            },
+            {
+              "path": "distributors/Tidal/Tidal_2024-Q4.csv",
+              "amount": 1439.48,
+              "rows": 32
+            }
+          ]
+        }
+      ],
+      "label_gross_files": [
+        {
+          "path": "distributors/Capston/Capston_label_receipts_CY2024.csv",
+          "amount": 299999.92
+        }
+      ],
+      "settlements_counted_once": 0.0,
+      "seller_summary_items": [
+        {
+          "description": "PRS performance + mechanical",
+          "type": "society_total",
+          "amount": 124000.0
+        },
+        {
+          "description": "ASCAP performance",
+          "type": "society_total",
+          "amount": 84000.0
+        },
+        {
+          "description": "BMI performance",
+          "type": "society_total",
+          "amount": 59000.0
+        },
+        {
+          "description": "SACEM",
+          "type": "society_total",
+          "amount": 33000.0
+        },
+        {
+          "description": "GEMA (estimate)",
+          "type": "society_total",
+          "amount": 17000.0
+        },
+        {
+          "description": "MCPS",
+          "type": "society_total",
+          "amount": 25000.0
+        },
+        {
+          "description": "SGAE",
+          "type": "society_total",
+          "amount": 12000.0
+        },
+        {
+          "description": "SOCAN",
+          "type": "society_total",
+          "amount": 16000.0
+        },
+        {
+          "description": "PPL neighbouring rights",
+          "type": "society_total",
+          "amount": 8000.0
+        },
+        {
+          "description": "US mechanical (est.)",
+          "type": "society_total",
+          "amount": 24000.0
+        },
+        {
+          "description": "Digital distributors",
+          "type": "society_total",
+          "amount": 19000.0
+        },
+        {
+          "description": "Capston Records label receipts",
+          "type": "label_gross",
+          "amount": 300000.0
+        },
+        {
+          "description": "PRS black-box (anticipated)",
+          "type": "accrued",
+          "amount": 24000.0
+        },
+        {
+          "description": "Pulse sync pipeline (anticipated)",
+          "type": "accrued",
+          "amount": 40000.0
+        }
+      ]
+    }
+  }
+}</script>
 <script id="data" type="application/json">{"meta": {"catalog": "Hollow Verge Publishing Catalog", "seller": "Northbridge Catalog Partners LLC", "generated": "2026-06-10", "files_processed": 1149, "pipeline_version": "1.0"}, "kpis": {"investor": [{"label": "Claimed FY23 revenue", "value": "$820k", "tone": "bad", "note": "Verifies to $470\u2013512k"}, {"label": "Verified base", "value": "$470k", "tone": "good", "note": "Sum of seller's own statements"}, {"label": "Top-song concentration", "value": "39%", "tone": "warn", "note": "Disclosed as ~30%"}, {"label": "Verdict", "value": "Re-price", "tone": "bad", "note": "Do not proceed at indicated basis"}], "lawyer": [{"label": "Chain-of-title docs missing", "value": "3", "tone": "bad", "note": "Deed unexecuted, schedules absent"}, {"label": "Disputed split sheets", "value": "2", "tone": "warn", "note": "Quiet Engine \u00b7 Slow Engine"}, {"label": "Estates without probate", "value": "2", "tone": "bad", "note": "Petrov \u00b7 Akhtar"}, {"label": "Expired agencies", "value": "1", "tone": "warn", "note": "Pulse sync (lapsed 2021)"}], "executive": [{"label": "Files processed", "value": "1,149", "tone": "neutral", "note": "602 PDFs \u00b7 497 CSVs"}, {"label": "Open findings", "value": "21", "tone": "warn", "note": "6 critical \u00b7 9 high \u00b7 6 medium"}, {"label": "Requirements met", "value": "0/18", "tone": "bad", "note": "8 partial \u00b7 10 missing"}, {"label": "P0 blockers", "value": "4", "tone": "bad", "note": "Title \u00b7 revenue \u00b7 fabrication \u00b7 counts"}], "pro": [{"label": "Registration mismatches", "value": "2", "tone": "bad", "note": "Carrying Stones \u00b7 Quiet Engine"}, {"label": "Shares in suspense", "value": "1", "tone": "warn", "note": "December Rooftops \u2014 30% (Akhtar)"}, {"label": "Missing statements", "value": "20+", "tone": "bad", "note": "Across 9 societies"}, {"label": "Societies affected", "value": "9", "tone": "warn", "note": "GEMA worst: 2021\u201323 lost"}]}, "findings": [{"id": "F01", "title": "1998 Vermillion deal is administration, not ownership", "detail": "Foundational agreement is an admin/co-publishing deal with reversion to writers on termination \u2014 whether Northbridge ever owned the catalog is unresolved. No renewal notices or estoppels on file.", "severity": "critical", "category": "title", "audiences": ["lawyer", "investor", "executive"], "sources": ["1998_vermillion_publishing_admin_agreement.pdf"], "action": "Estoppel certificates from writers/estates; title opinion from Reeves & Patel"}, {"id": "F02", "title": "2017 assignment deed unexecuted; schedules missing", "detail": "Blank signature blocks; master purchase agreement and all schedules/annexes referenced but absent. Deed recites 40 compositions vs 32 being sold vs 60 in seller's internal inventory.", "severity": "critical", "category": "title", "audiences": ["lawyer", "investor", "executive"], "sources": ["2017_vermillion_to_northbridge_catalog_assignment.pdf", "Hollow Verge - master inventory DRAFT.xlsx"], "action": "Request executed deed + complete schedules (P0, seller)"}, {"id": "F03", "title": "Masters chain undocumented", "detail": "Northbridge's interest in Pale Engines / Migrant Hour masters rests on a 2014 Reston Vance/Capston assignment not in the data room.", "severity": "critical", "category": "title", "audiences": ["lawyer", "investor"], "sources": ["2017 deed Annex 4 (referenced, absent)"], "action": "Request 2014 masters assignment (P0)"}, {"id": "F04", "title": "Revenue overstated ~60\u201374%", "detail": "Claimed $820k/$785k vs $470\u2013512k verifiable. Gap \u2248 Capston label gross (~$306k/yr) counted as publishing income \u2014 Northbridge collects only ~18% royalty on it.", "severity": "critical", "category": "financial", "audiences": ["investor", "executive"], "sources": ["Hollow_Verge_catalog_one_pager.pdf", "Catalog_earnings_overview_CY2023.csv", "LTM_snapshot_Oct2023-Sep2024.csv"], "action": "Re-cut offer off verified base; request per-song ledger"}, {"id": "F05", "title": "Future-dated distributor statement", "detail": "Capston 2H-FY2026 covers Jan\u2013Jun 2026, issue-dated 28 Oct 2026 \u2014 after today. Conveniently the highest gross since FY2022. Fabrication signal.", "severity": "critical", "category": "financial", "audiences": ["investor", "lawyer", "executive"], "sources": ["Capston/2H-FY2026.pdf"], "action": "Challenge seller; treat all Capston figures as unverified"}, {"id": "F06", "title": "Settlement double-counted; phantom income booked", "detail": "$42k BMW settlement booked in both 2022 and 2023 ('inconsistency is intentional' per internal note); $30k PRS black-box payout never received but booked as actual; $8k MFN catch-up unconfirmed.", "severity": "high", "category": "financial", "audiences": ["investor", "executive"], "sources": ["Hollow_Verge_key_earnings_notes_addendum.md", "Pulse annual summaries/2023_yearend_reconciliation.txt"], "action": "Request settlement memo + confirmations (P1, Pulse)"}, {"id": "F07", "title": "Writer-share double-counting in summaries", "detail": "PRS line in CY2023 overview is 2.46\u00d7 the actual publisher entitlement; ASCAP +37%. Writer shares paid directly to writers are counted as Northbridge income.", "severity": "high", "category": "financial", "audiences": ["investor", "pro"], "sources": ["Catalog_earnings_overview_CY2023.csv", "PRS/2023-Q1.pdf"], "action": "Rebuild revenue from statement-level publisher shares only"}, {"id": "F08", "title": "Undisclosed $120k advance, silent recoupments", "detail": "Capston 2019 marketing advance side letter absent; $5,800 recouped invisibly in 1H-FY2024; accounting export and PDF disagree by ~$4,928 while claiming to match.", "severity": "high", "category": "financial", "audiences": ["investor", "lawyer"], "sources": ["Capston/1H-FY2024_accounting_export.csv", "Capston/1H-FY2024.pdf"], "action": "Request side letter + full recoupment ledger"}, {"id": "F09", "title": "Concentration worse than disclosed", "detail": "December Rooftops \u2248 39% of earnings (claimed ~30%); top 5 \u2248 65% (claimed 56%) \u2014 and rising. 54% of 2024 sync gross.", "severity": "high", "category": "financial", "audiences": ["investor", "executive"], "sources": ["Capston/1H-FY2024.pdf", "Pulse annual summaries/2024.csv"], "action": "Stress-test valuation on single-song dependency"}, {"id": "F10", "title": "Quiet Engine: operative split sheet unsigned, writer lawyered up", "detail": "Two conflicting versions; v2 (incl. Hassan Iqbal 12%) unsigned by 2 of 5 writers. Iqbal claims years of unpaid UK/US royalties; counsel engaged. PRS allocates him 12% he says he never receives.", "severity": "critical", "category": "rights", "audiences": ["lawyer", "pro", "executive"], "sources": ["split_MIG_QUIET_ENGINE (1).pdf", "20240306_hassan_iqbal_to_lena_uk_royalties.pdf"], "action": "Ratify split sheet; quantify back-royalties; settle pre-closing"}, {"id": "F11", "title": "Carrying Stones: 4% writer missing from PRS registration since 2005", "detail": "Naomi Tate's signed 4% share absent from PRS registration; two written complaints (2022, 2023) ignored. ~20 years of back-payment liability.", "severity": "high", "category": "rights", "audiences": ["lawyer", "pro"], "sources": ["split_MIG_CARRYING_STONES.pdf", "20230214_naomi_tate_to_lena_PRS_complaint_FOLLOWUP.pdf"], "action": "PRS re-registration + back-pay quantification"}, {"id": "F12", "title": "December Rooftops: 30% writer share frozen in suspense", "detail": "Lena Akhtar (30% writer on the catalog's top earner) died March 2022; PRS holds her share in suspense; no estate contact exists. Known internally, undisclosed to buyers.", "severity": "critical", "category": "rights", "audiences": ["lawyer", "pro", "investor", "executive"], "sources": ["split_MIG_DECEMBER_ROOFTOPS.pdf", "20240429_lena_to_reeves_patel_akhtar_estate.pdf"], "action": "Locate estate; resolve suspense before closing"}, {"id": "F13", "title": "Slow Engine: sample share signed 12 years post-mortem", "detail": "8% sample share (Curtis Hammond, d. 1989) 'signed' 14 Jun 2001. Controlling Bug Music side letter exists only as an illegible 2001 fax. Internal note: 'sample escalation 2027? check legal.'", "severity": "high", "category": "rights", "audiences": ["lawyer", "investor"], "sources": ["split_PE_SLOW_ENGINE.pdf", "fax_in_4-12-01_re_hammond_sample.pdf"], "action": "Obtain legible side letter from BMG incl. escalation terms"}, {"id": "F14", "title": "Petrov estate: no probate, informal banking changes", "detail": "Julian Petrov writes on all 32 songs (~25% average). Zero succession documents; estate bank details changed by post ('I never quite trust email'). Payment-redirection risk.", "severity": "high", "category": "rights", "audiences": ["lawyer", "executive"], "sources": ["20240822_petra_petrov_to_lena_banking_change.pdf"], "action": "Grant of probate + verified payment instructions (callback controls)"}, {"id": "F15", "title": "Pulse issuing licences on an expired appointment", "detail": "3-year sync agency appointment (Jan 2018, unsigned copy) never renewed; Pulse still issued licences in 2021\u201322 incl. BMW commercial. Licence validity risk.", "severity": "medium", "category": "rights", "audiences": ["lawyer"], "sources": ["2018_pulse_sync_agency_appointment.pdf", "PULSE-2022-PE-10-0702.pdf"], "action": "Post-2021 authority docs + full licence schedule (P2)"}, {"id": "F16", "title": "GEMA statements 2021\u20132023 lost entirely", "detail": "Three years of German income unverifiable \u2014 internally admitted inbox-handover failure; Germany booked at $0 in CY2023 overview.", "severity": "high", "category": "coverage", "audiences": ["pro", "investor", "executive"], "sources": ["20240108_lena_to_team_GEMA_internal.pdf", "GEMA/"], "action": "GEMA reissues duplicates on request (P1)"}, {"id": "F17", "title": "No MLC statements \u2014 entire society absent", "detail": "HFA mechanicals stop 2019-Q4; US mechanical income 2021+ (The MLC era) entirely undocumented.", "severity": "high", "category": "coverage", "audiences": ["pro", "investor"], "sources": ["HFA mechanical/"], "action": "Request MLC statements 2021\u20132025"}, {"id": "F18", "title": "20+ statements missing across 9 societies", "detail": "SACEM 2022 (both halves) \u00b7 SGAE 2019-H1, 2024-H2 \u00b7 PRS 2023-Q2, 2024-Q3, 2025-Q1 \u00b7 ASCAP 2022-Q3, 2024-Q1 \u00b7 MCPS 2018-Q1, 2021-Q2, 2022-Q4 \u00b7 BMI 2020-Q2, 2023-Q1, 2024-Q2 \u00b7 SOCAN 2019-Q3, 2023-Q3 \u00b7 PPL 2018, 2025.", "severity": "medium", "category": "coverage", "audiences": ["pro"], "sources": ["coverage matrix (pipeline output)"], "action": "Bulk duplicate-statement requests to each society"}, {"id": "F19", "title": "Misfiled and impossible files", "detail": "BMI 2020-Q2 filed in ASCAP folder; Spotify 2019-05 in Amazon folder; SOCAN statement in APRA folder; Tidal '2025-13.csv' (13th month) is empty; Vermillion GBP statement in Capston folder.", "severity": "medium", "category": "hygiene", "audiences": ["pro", "executive"], "sources": ["ASCAP/BMI_2020-Q2.pdf", "Amazon Music/spotify_streaming_report_2019-05.csv", "Tidal/2025-13.csv"], "action": "Refile per manifest; pipeline auto-detects on re-run"}, {"id": "F20", "title": "'FINAL' term sheet is byte-identical to the draft", "detail": "Three term sheet filenames (v1_PRE_LOI, DRAFT, 'v3 post call FINAL') share one MD5 \u2014 no post-call changes were ever made. scan_final.pdf is a holiday photo renamed.", "severity": "medium", "category": "hygiene", "audiences": ["executive", "lawyer"], "sources": ["indicative term sheet v3 (post call) FINAL.pdf", "scan_final.pdf"], "action": "Request the actual negotiated term sheet"}, {"id": "F21", "title": "13 zero-byte placeholders, 17 duplicate groups, 3 empty folders", "detail": "'AWAITING_UPLOAD' shells (SACEM 2025-H2, MCPS 2025-Q4), Office lock files, failed exports, corrupt PDFs ('2H-FY2025 (corrupt).pdf'), 35 junk/system files.", "severity": "medium", "category": "hygiene", "audiences": ["executive"], "sources": ["manifest.csv", "exact_duplicates.txt"], "action": "Hygiene list auto-generated; reissue corrupt/empty files"}], "requisitions": [{"counterparty": "Seller (Lena Kowalski)", "priority": "P0", "items": "Executed 2017 deed + schedules \u00b7 Vermillion purchase agreement \u00b7 masters assignment \u00b7 $120k advance side letter \u00b7 per-song ledger"}, {"counterparty": "Reeves & Patel (counsel)", "priority": "P0", "items": "Title opinion \u00b7 estoppel certificates (4 writers/estates)"}, {"counterparty": "GEMA \u00b7 SACEM \u00b7 MLC \u00b7 PRS \u00b7 ASCAP \u00b7 BMI \u00b7 SOCAN \u00b7 PPL", "priority": "P1", "items": "Duplicate statements for all gap periods \u00b7 registration extracts (Carrying Stones, Quiet Engine)"}, {"counterparty": "Petrov & Akhtar estates", "priority": "P1", "items": "Probate / letters of administration \u00b7 verified payment instructions"}, {"counterparty": "Bug Music (BMG)", "priority": "P1", "items": "Legible 2001 Hammond side letter incl. escalation clause"}, {"counterparty": "Pulse", "priority": "P2", "items": "Post-2021 authority docs \u00b7 full licence schedule \u00b7 BMW settlement memo"}]}</script>
 <script>
 let DB = JSON.parse(document.getElementById('data').textContent);
@@ -170,6 +1019,94 @@ const CATMETA={
   hygiene:{label:"Data-Room Hygiene",cls:"lime"}
 };
 let persona="executive", sevOn=new Set(SEVS);
+let view="dashboard", auditYear=null;
+let RECON = null;
+
+const fmt$ = x => '$' + Math.round(x).toLocaleString('en-US');
+
+function setView(next){
+  view = next;
+  document.querySelectorAll('#nav a[data-view]').forEach(a=>{
+    a.classList.toggle('active', a.dataset.view===view && (view!=='dashboard' || a.textContent.trim()==='Dashboard'));
+  });
+  document.getElementById('view-dashboard').hidden = view!=='dashboard';
+  document.getElementById('view-audit').hidden = view!=='audit';
+  if(view==='audit') renderAudit();
+}
+
+document.getElementById('nav').addEventListener('click', e=>{
+  const link = e.target.closest('a[data-view]');
+  if(!link) return;
+  e.preventDefault();
+  setView(link.dataset.view);
+});
+
+function renderAudit(){
+  if(!RECON || !RECON.years || !RECON.years.length) return;
+  if(auditYear===null) auditYear = RECON.years[0];
+  const year = auditYear;
+  const Y = RECON.by_year[String(year)];
+  const A = RECON.audit[String(year)];
+  if(!Y || !A) return;
+
+  document.getElementById('audit-meta').textContent =
+    `${RECON.deal} · ${RECON.seller} · generated ${RECON.generated}`;
+  document.getElementById('audit-years').innerHTML = RECON.years.map(y=>
+    `<button class="${y===year?'on':''}" onclick="auditYear=${y};renderAudit()">FY${y}</button>`).join('');
+
+  document.getElementById('audit-kpis').innerHTML = `
+    <div class="kpi"><div class="l">Claimed FY${year}</div><div class="v bad">${fmt$(Y.claimed)}</div></div>
+    <div class="kpi"><div class="l">Verified range</div><div class="v good">${fmt$(Y.verified_low)}&ndash;${fmt$(Y.verified_high)}</div></div>
+    <div class="kpi"><div class="l">Overstated</div><div class="v bad">${Y.overstatement_pct_low}&ndash;${Y.overstatement_pct_high}%</div></div>
+    <div class="kpi"><div class="l">Statement files summed</div><div class="v">${A.by_source.reduce((n,s)=>n+s.file_count,0)}</div></div>`;
+
+  document.getElementById('audit-formula').innerHTML =
+    `<b>verified_low</b> = &Sigma; statement detail (${fmt$(Y.statement_detail)}) + settlements counted once (${fmt$(Y.settlements_counted_once)}) = <b>${fmt$(Y.verified_low)}</b>
+     &nbsp;&nbsp;|&nbsp;&nbsp; <b>verified_high</b> = verified_low + label gross ${fmt$(Y.label_gross_receipts)} &times; ${Math.round(RECON.rate*100)}% royalty = <b>${fmt$(Y.verified_high)}</b>
+     &nbsp;&nbsp;|&nbsp;&nbsp; accrued/black-box excluded: ${fmt$(Y.accrued_excluded)}`;
+
+  const badge = t => t.includes('gross') ? '<span class="audit-badge gross">label gross</span>'
+    : t.includes('settle') ? '<span class="audit-badge dup">double-counted</span>'
+    : (t.includes('accru')||t.includes('pipeline')) ? '<span class="audit-badge accr">never received</span>' : '';
+  document.getElementById('audit-summary').innerHTML = A.seller_summary_items.map(it=>{
+    const flag = badge(it.type);
+    return `<tr class="${flag?'flag':''}"><td>${it.description}${flag}</td><td class="num">${fmt$(it.amount)}</td></tr>`;
+  }).join('') + `<tr class="total"><td>Seller total</td><td class="num">${fmt$(A.seller_summary_items.reduce((n,it)=>n+it.amount,0)||Y.claimed)}</td></tr>`;
+
+  const b = Y.bridge || {items:[],residual_unexplained:0,gap:Y.claimed-Y.verified_low};
+  let bridgeRows = `<tr><td>Claimed FY${year}</td><td class="num">${fmt$(Y.claimed)}</td></tr>`;
+  for(const it of b.items)
+    bridgeRows += `<tr><td>&minus; ${it.item}</td><td class="num minus">&minus;${fmt$(it.amount)}</td></tr>`;
+  bridgeRows += `<tr><td>&minus; residual (writer-share double-counting on PRO lines; per-song ledger requested)</td>
+                 <td class="num minus">&minus;${fmt$(b.residual_unexplained)}</td></tr>`;
+  bridgeRows += `<tr class="total"><td>Verified low (rebuilt from statements)</td><td class="num">${fmt$(Y.verified_low)}</td></tr>`;
+  bridgeRows += `<tr><td>+ label royalty entitlement (${Math.round(RECON.rate*100)}% of gross receipts)</td>
+                 <td class="num plus">+${fmt$(Y.label_royalty_entitlement)}</td></tr>`;
+  bridgeRows += `<tr class="total"><td>Verified high</td><td class="num">${fmt$(Y.verified_high)}</td></tr>`;
+  document.getElementById('audit-bridge').innerHTML = bridgeRows;
+
+  document.getElementById('audit-sources').innerHTML = A.by_source.map(s => `
+    <details><summary><span>${s.source} <span class="audit-badge ok">${s.file_count} files</span></span>
+      <span class="amt">${fmt$(s.total)}</span></summary>
+      <div class="files">${s.files.map(f =>
+        `<div><code>${f.path}</code><span>${fmt$(f.amount)} · ${f.rows} rows</span></div>`).join('')}</div>
+    </details>`).join('') +
+    (A.settlements_counted_once ? `<details><summary><span>Settlements (counted once)</span>
+      <span class="amt">${fmt$(A.settlements_counted_once)}</span></summary></details>` : '') +
+    (A.label_gross_files.length ? `<details><summary><span>Label gross receipts (NOT publishing revenue)</span>
+      <span class="amt" style="color:var(--orange)">${fmt$(A.label_gross_files.reduce((n,f)=>n+f.amount,0))}</span></summary>
+      <div class="files">${A.label_gross_files.map(f =>
+        `<div><code>${f.path}</code><span>${fmt$(f.amount)}</span></div>`).join('')}</div></details>` : '');
+}
+
+function loadRecon(){
+  const el = document.getElementById('recon-data');
+  const embedded = el.textContent.trim();
+  if(embedded && embedded !== '{}') RECON = JSON.parse(embedded);
+  fetch('reconciliation.json').then(r=>r.ok?r.json():null).then(j=>{
+    if(j){ RECON=j; if(view==='audit') renderAudit(); }
+  }).catch(()=>{});
+}
 
 function render(){
   document.getElementById('meta').textContent =
@@ -225,7 +1162,10 @@ function render(){
     rs.map(r=>`<div class="req"><div class="who">${r.counterparty}<span class="pp ${p}">${p}</span></div><div class="items">${r.items}</div></div>`).join('') : '').join('');
 }
 function tog(s){ sevOn.has(s)?sevOn.delete(s):sevOn.add(s); render(); }
+
+loadRecon();
 render();
+if(new URLSearchParams(location.search).get('view')==='audit') setView('audit');
 </script>
 </body>
 </html>

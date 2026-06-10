@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 from pathlib import Path
 
 from pipeline.manifest import build_manifest
@@ -29,7 +30,7 @@ from pipeline.scorecard import build_scorecard
 from pipeline.requisitions import build_requisitions
 from pipeline.report import build_report
 from pipeline.dashboard import build_dashboard
-from pipeline.recon_calculator import build_recon_calculator
+from pipeline.recon_calculator import build_recon_payload, build_recon_redirect
 
 
 def main() -> None:
@@ -86,7 +87,8 @@ def main() -> None:
     dashboard = build_dashboard(manifest, coverage, recon, scorecard, requisitions, claims, findings)
 
     print("[8/8] Revenue audit calculator")
-    calculator_html = build_recon_calculator(recon, claims, dashboard["generated_at"])
+    recon_payload = build_recon_payload(recon, claims, dashboard["generated_at"])
+    calculator_html = build_recon_redirect()
 
     _dump(args.out / "manifest.json", manifest)
     _dump(args.out / "coverage.json", coverage)
@@ -100,13 +102,33 @@ def main() -> None:
     (args.out / "DD_REPORT.md").write_text(report_md)
     (args.out / "reconciliation.html").write_text(calculator_html)
     if Path("dashboard").is_dir():  # publish next to the stakeholder UI
+        Path("dashboard/reconciliation.json").write_text(json.dumps(recon_payload, indent=2))
         Path("dashboard/reconciliation.html").write_text(calculator_html)
+        _embed_recon_in_index(recon_payload)
     print(f"\nDone. Report: {args.out / 'DD_REPORT.md'} · UI payload: {args.out / 'dashboard.json'} "
           f"· audit calculator: {args.out / 'reconciliation.html'}")
 
 
 def _dump(path: Path, obj) -> None:
     path.write_text(json.dumps(obj, indent=2, default=str))
+
+
+def _embed_recon_in_index(payload: dict) -> None:
+    """Keep embedded fallback in index.html in sync for file:// opens."""
+    index = Path("dashboard/index.html")
+    if not index.exists():
+        return
+    blob = json.dumps(payload)
+    html = index.read_text()
+    html, n = re.subn(
+        r'(<script id="recon-data" type="application/json">).*?(</script>)',
+        r"\1" + blob + r"\2",
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+    if n:
+        index.write_text(html)
 
 
 if __name__ == "__main__":
