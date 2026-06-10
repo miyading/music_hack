@@ -1,0 +1,98 @@
+                MASTER RECORDINGS INVENTORY
+                                Hollow Verge catalog — all known studio masters
+
+
+The following inventory of master recordings has been prepared by Northbridge Catalog Operations for reference
+purposes. Each master is identified by ISRC code, original release date, and current rights holder.
+
+
+ ISRC            Title                         Album               Release    Duration   Rights holder
+
+ GBVRM9800101    Trafford Mile                 Soft Static         1998       4:07       Northbridge / Vermillion residuary
+
+ GBVRM9800102    Soft Static                   Soft Static         1998       5:18       Northbridge / Vermillion residuary
+
+ GBVRM9800103    Year of the Mountains         Soft Static         1998       4:31       Northbridge / Vermillion residuary
+
+ GBVRM9800104    Postwar Light                 Soft Static         1998       4:55       Northbridge / Vermillion residuary
+
+ GBVRM9800105    The Margate Hum               Soft Static         1998       3:42       Northbridge / Vermillion residuary
+
+ GBVRM9800106    Lent                          Soft Static         1998       3:08       Northbridge / Vermillion residuary
+
+ GBVRM9800107    Pennines, Slowly              Soft Static         1998       5:48       Northbridge / Vermillion residuary
+
+ GBVRM9800108    Hush, Bandits                 Soft Static         1998       4:21       Northbridge / Vermillion residuary
+
+ GBVRM9800109    Carriageway                   Soft Static         1998       5:04       Northbridge / Vermillion residuary
+
+ GBVRM9800110    Vinegar Hill                  Soft Static         1998       6:51       Northbridge / Vermillion residuary
+
+ USCRR0100101    Slow Engine                   Pale Engines        2001       5:34       Northbridge / Capston successor
+
+ USCRR0100102    Pale Engines                  Pale Engines        2001       6:52       Northbridge / Capston successor
+
+ USCRR0100103    Hudson, Brooklyn              Pale Engines        2001       4:47       Northbridge / Capston successor
+
+ USCRR0100104    Telephone Saints              Pale Engines        2001       4:06       Northbridge / Capston successor
+
+ USCRR0100105    The Architect of Sleep        Pale Engines        2001       6:12       Northbridge / Capston successor
+
+ USCRR0100106    Smaller Weathers              Pale Engines        2001       3:39       Northbridge / Capston successor
+
+ USCRR0100107    Wires and Bone                Pale Engines        2001       5:01       Northbridge / Capston successor
+
+ USCRR0100108    Holyhead                      Pale Engines        2001       4:24       Northbridge / Capston successor
+
+ USCRR0100109    Atrium Hymn                   Pale Engines        2001       6:31       Northbridge / Capston successor
+
+ USCRR0100110    A Northern Memory             Pale Engines        2001       4:42       Northbridge / Capston successor
+
+ USCRR0100111    Halflight, Halfsong           Pale Engines        2001       7:38       Northbridge / Capston successor
+
+ USCRR0500101    December Rooftops             The Migrant Hour    2005       4:23       Northbridge / Capston successor
+
+ USCRR0500102    The Migrant Hour              The Migrant Hour    2005       6:14       Northbridge / Capston successor
+
+ USCRR0500103    Quiet Engine                  The Migrant Hour    2005       4:58       Northbridge / Capston successor
+
+ USCRR0500104    Carrying Stones               The Migrant Hour    2005       5:12       Northbridge / Capston successor
+
+ USCRR0500105    Belfast Cold                  The Migrant Hour    2005       4:16       Northbridge / Capston successor
+
+ USCRR0500106    Telegraph, Honestly           The Migrant Hour    2005       3:53       Northbridge / Capston successor
+
+ USCRR0500107    Plain Saints                  The Migrant Hour    2005       4:31       Northbridge / Capston successor
+
+ USCRR0500108    Long Glass                    The Migrant Hour    2005       5:18       Northbridge / Capston successor
+
+ USCRR0500109    The Borrowing                 The Migrant Hour    2005       3:44       Northbridge / Capston successor
+ USCRR0500110        Hollow Verge                      The Migrant Hour           2005          6:27         Northbridge / Capston successor
+
+ USCRR0500111        Letters from Penzance             The Migrant Hour           2005          7:22         Northbridge / Capston successor
+
+ GBVTP1000101        Ordinary Weather                  Ordinary Weather           2010          5:22         in inventory — see notes
+
+ GBVTP1000102        Lamplight Engines                 Ordinary Weather           2010          4:37         in inventory — see notes
+
+ GBVTP1000103        The Late Architect                Ordinary Weather           2010          5:51         in inventory — see notes
+
+ GBVTP1000104        A Quieter Year                    Ordinary Weather           2010          4:04         in inventory — see notes
+
+ GBVTP1000105        Storefronts                       Ordinary Weather           2010          4:58         in inventory — see notes
+
+ GBVTP1000106        North Road                        Ordinary Weather           2010          4:21         in inventory — see notes
+
+ GBVTP1000107        Hush, Bandits Pt. II              Ordinary Weather           2010          5:12         in inventory — see notes
+
+ GBVTP1000108        Slowly Over Rivers                Ordinary Weather           2010          6:45         in inventory — see notes
+
+ GBVTP1000109        Wedding Light                     Ordinary Weather           2010          3:38         in inventory — see notes
+
+ GBVTP1000110        Last Bus to Wigan                 Ordinary Weather           2010          7:46         in inventory — see notes
+
+
+
+Notes: Ordinary Weather (2010) was released through the band-owned imprint Verge Tapes. Northbridge holds no direct ownership interest
+in the Verge Tapes masters; the entries above are included in this inventory for completeness only.
+

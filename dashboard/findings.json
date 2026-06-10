@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "catalog": "Hollow Verge Publishing Catalog",
+    "seller": "Northbridge Catalog Partners LLC",
+    "generated": "2026-06-10",
+    "files_processed": 1149,
+    "pipeline_version": "1.0"
+  },
+  "kpis": {
+    "investor": [
+      { "label": "Claimed FY23 revenue", "value": "$820k", "tone": "bad", "note": "Verifies to $470–512k" },
+      { "label": "Verified base", "value": "$470k", "tone": "good", "note": "Sum of seller's own statements" },
+      { "label": "Top-song concentration", "value": "39%", "tone": "warn", "note": "Disclosed as ~30%" },
+      { "label": "Verdict", "value": "Re-price", "tone": "bad", "note": "Do not proceed at indicated basis" }
+    ],
+    "lawyer": [
+      { "label": "Chain-of-title docs missing", "value": "3", "tone": "bad", "note": "Deed unexecuted, schedules absent" },
+      { "label": "Disputed split sheets", "value": "2", "tone": "warn", "note": "Quiet Engine · Slow Engine" },
+      { "label": "Estates without probate", "value": "2", "tone": "bad", "note": "Petrov · Akhtar" },
+      { "label": "Expired agencies", "value": "1", "tone": "warn", "note": "Pulse sync (lapsed 2021)" }
+    ],
+    "executive": [
+      { "label": "Files processed", "value": "1,149", "tone": "neutral", "note": "602 PDFs · 497 CSVs" },
+      { "label": "Open findings", "value": "21", "tone": "warn", "note": "6 critical · 9 high · 6 medium" },
+      { "label": "Requirements met", "value": "0/18", "tone": "bad", "note": "8 partial · 10 missing" },
+      { "label": "P0 blockers", "value": "4", "tone": "bad", "note": "Title · revenue · fabrication · counts" }
+    ],
+    "pro": [
+      { "label": "Registration mismatches", "value": "2", "tone": "bad", "note": "Carrying Stones · Quiet Engine" },
+      { "label": "Shares in suspense", "value": "1", "tone": "warn", "note": "December Rooftops — 30% (Akhtar)" },
+      { "label": "Missing statements", "value": "20+", "tone": "bad", "note": "Across 9 societies" },
+      { "label": "Societies affected", "value": "9", "tone": "warn", "note": "GEMA worst: 2021–23 lost" }
+    ]
+  },
+  "findings": [
+    { "id": "F01", "title": "1998 Vermillion deal is administration, not ownership", "detail": "Foundational agreement is an admin/co-publishing deal with reversion to writers on termination — whether Northbridge ever owned the catalog is unresolved. No renewal notices or estoppels on file.", "severity": "critical", "category": "title", "audiences": ["lawyer", "investor", "executive"], "sources": ["1998_vermillion_publishing_admin_agreement.pdf"], "action": "Estoppel certificates from writers/estates; title opinion from Reeves & Patel" },
+    { "id": "F02", "title": "2017 assignment deed unexecuted; schedules missing", "detail": "Blank signature blocks; master purchase agreement and all schedules/annexes referenced but absent. Deed recites 40 compositions vs 32 being sold vs 60 in seller's internal inventory.", "severity": "critical", "category": "title", "audiences": ["lawyer", "investor", "executive"], "sources": ["2017_vermillion_to_northbridge_catalog_assignment.pdf", "Hollow Verge - master inventory DRAFT.xlsx"], "action": "Request executed deed + complete schedules (P0, seller)" },
+    { "id": "F03", "title": "Masters chain undocumented", "detail": "Northbridge's interest in Pale Engines / Migrant Hour masters rests on a 2014 Reston Vance/Capston assignment not in the data room.", "severity": "critical", "category": "title", "audiences": ["lawyer", "investor"], "sources": ["2017 deed Annex 4 (referenced, absent)"], "action": "Request 2014 masters assignment (P0)" },
+    { "id": "F04", "title": "Revenue overstated ~60–74%", "detail": "Claimed $820k/$785k vs $470–512k verifiable. Gap ≈ Capston label gross (~$306k/yr) counted as publishing income — Northbridge collects only ~18% royalty on it.", "severity": "critical", "category": "financial", "audiences": ["investor", "executive"], "sources": ["Hollow_Verge_catalog_one_pager.pdf", "Catalog_earnings_overview_CY2023.csv", "LTM_snapshot_Oct2023-Sep2024.csv"], "action": "Re-cut offer off verified base; request per-song ledger" },
+    { "id": "F05", "title": "Future-dated distributor statement", "detail": "Capston 2H-FY2026 covers Jan–Jun 2026, issue-dated 28 Oct 2026 — after today. Conveniently the highest gross since FY2022. Fabrication signal.", "severity": "critical", "category": "financial", "audiences": ["investor", "lawyer", "executive"], "sources": ["Capston/2H-FY2026.pdf"], "action": "Challenge seller; treat all Capston figures as unverified" },
+    { "id": "F06", "title": "Settlement double-counted; phantom income booked", "detail": "$42k BMW settlement booked in both 2022 and 2023 ('inconsistency is intentional' per internal note); $30k PRS black-box payout never received but booked as actual; $8k MFN catch-up unconfirmed.", "severity": "high", "category": "financial", "audiences": ["investor", "executive"], "sources": ["Hollow_Verge_key_earnings_notes_addendum.md", "Pulse annual summaries/2023_yearend_reconciliation.txt"], "action": "Request settlement memo + confirmations (P1, Pulse)" },
+    { "id": "F07", "title": "Writer-share double-counting in summaries", "detail": "PRS line in CY2023 overview is 2.46× the actual publisher entitlement; ASCAP +37%. Writer shares paid directly to writers are counted as Northbridge income.", "severity": "high", "category": "financial", "audiences": ["investor", "pro"], "sources": ["Catalog_earnings_overview_CY2023.csv", "PRS/2023-Q1.pdf"], "action": "Rebuild revenue from statement-level publisher shares only" },
+    { "id": "F08", "title": "Undisclosed $120k advance, silent recoupments", "detail": "Capston 2019 marketing advance side letter absent; $5,800 recouped invisibly in 1H-FY2024; accounting export and PDF disagree by ~$4,928 while claiming to match.", "severity": "high", "category": "financial", "audiences": ["investor", "lawyer"], "sources": ["Capston/1H-FY2024_accounting_export.csv", "Capston/1H-FY2024.pdf"], "action": "Request side letter + full recoupment ledger" },
+    { "id": "F09", "title": "Concentration worse than disclosed", "detail": "December Rooftops ≈ 39% of earnings (claimed ~30%); top 5 ≈ 65% (claimed 56%) — and rising. 54% of 2024 sync gross.", "severity": "high", "category": "financial", "audiences": ["investor", "executive"], "sources": ["Capston/1H-FY2024.pdf", "Pulse annual summaries/2024.csv"], "action": "Stress-test valuation on single-song dependency" },
+    { "id": "F10", "title": "Quiet Engine: operative split sheet unsigned, writer lawyered up", "detail": "Two conflicting versions; v2 (incl. Hassan Iqbal 12%) unsigned by 2 of 5 writers. Iqbal claims years of unpaid UK/US royalties; counsel engaged. PRS allocates him 12% he says he never receives.", "severity": "critical", "category": "rights", "audiences": ["lawyer", "pro", "executive"], "sources": ["split_MIG_QUIET_ENGINE (1).pdf", "20240306_hassan_iqbal_to_lena_uk_royalties.pdf"], "action": "Ratify split sheet; quantify back-royalties; settle pre-closing" },
+    { "id": "F11", "title": "Carrying Stones: 4% writer missing from PRS registration since 2005", "detail": "Naomi Tate's signed 4% share absent from PRS registration; two written complaints (2022, 2023) ignored. ~20 years of back-payment liability.", "severity": "high", "category": "rights", "audiences": ["lawyer", "pro"], "sources": ["split_MIG_CARRYING_STONES.pdf", "20230214_naomi_tate_to_lena_PRS_complaint_FOLLOWUP.pdf"], "action": "PRS re-registration + back-pay quantification" },
+    { "id": "F12", "title": "December Rooftops: 30% writer share frozen in suspense", "detail": "Lena Akhtar (30% writer on the catalog's top earner) died March 2022; PRS holds her share in suspense; no estate contact exists. Known internally, undisclosed to buyers.", "severity": "critical", "category": "rights", "audiences": ["lawyer", "pro", "investor", "executive"], "sources": ["split_MIG_DECEMBER_ROOFTOPS.pdf", "20240429_lena_to_reeves_patel_akhtar_estate.pdf"], "action": "Locate estate; resolve suspense before closing" },
+    { "id": "F13", "title": "Slow Engine: sample share signed 12 years post-mortem", "detail": "8% sample share (Curtis Hammond, d. 1989) 'signed' 14 Jun 2001. Controlling Bug Music side letter exists only as an illegible 2001 fax. Internal note: 'sample escalation 2027? check legal.'", "severity": "high", "category": "rights", "audiences": ["lawyer", "investor"], "sources": ["split_PE_SLOW_ENGINE.pdf", "fax_in_4-12-01_re_hammond_sample.pdf"], "action": "Obtain legible side letter from BMG incl. escalation terms" },
+    { "id": "F14", "title": "Petrov estate: no probate, informal banking changes", "detail": "Julian Petrov writes on all 32 songs (~25% average). Zero succession documents; estate bank details changed by post ('I never quite trust email'). Payment-redirection risk.", "severity": "high", "category": "rights", "audiences": ["lawyer", "executive"], "sources": ["20240822_petra_petrov_to_lena_banking_change.pdf"], "action": "Grant of probate + verified payment instructions (callback controls)" },
+    { "id": "F15", "title": "Pulse issuing licences on an expired appointment", "detail": "3-year sync agency appointment (Jan 2018, unsigned copy) never renewed; Pulse still issued licences in 2021–22 incl. BMW commercial. Licence validity risk.", "severity": "medium", "category": "rights", "audiences": ["lawyer"], "sources": ["2018_pulse_sync_agency_appointment.pdf", "PULSE-2022-PE-10-0702.pdf"], "action": "Post-2021 authority docs + full licence schedule (P2)" },
+    { "id": "F16", "title": "GEMA statements 2021–2023 lost entirely", "detail": "Three years of German income unverifiable — internally admitted inbox-handover failure; Germany booked at $0 in CY2023 overview.", "severity": "high", "category": "coverage", "audiences": ["pro", "investor", "executive"], "sources": ["20240108_lena_to_team_GEMA_internal.pdf", "GEMA/"], "action": "GEMA reissues duplicates on request (P1)" },
+    { "id": "F17", "title": "No MLC statements — entire society absent", "detail": "HFA mechanicals stop 2019-Q4; US mechanical income 2021+ (The MLC era) entirely undocumented.", "severity": "high", "category": "coverage", "audiences": ["pro", "investor"], "sources": ["HFA mechanical/"], "action": "Request MLC statements 2021–2025" },
+    { "id": "F18", "title": "20+ statements missing across 9 societies", "detail": "SACEM 2022 (both halves) · SGAE 2019-H1, 2024-H2 · PRS 2023-Q2, 2024-Q3, 2025-Q1 · ASCAP 2022-Q3, 2024-Q1 · MCPS 2018-Q1, 2021-Q2, 2022-Q4 · BMI 2020-Q2, 2023-Q1, 2024-Q2 · SOCAN 2019-Q3, 2023-Q3 · PPL 2018, 2025.", "severity": "medium", "category": "coverage", "audiences": ["pro"], "sources": ["coverage matrix (pipeline output)"], "action": "Bulk duplicate-statement requests to each society" },
+    { "id": "F19", "title": "Misfiled and impossible files", "detail": "BMI 2020-Q2 filed in ASCAP folder; Spotify 2019-05 in Amazon folder; SOCAN statement in APRA folder; Tidal '2025-13.csv' (13th month) is empty; Vermillion GBP statement in Capston folder.", "severity": "medium", "category": "hygiene", "audiences": ["pro", "executive"], "sources": ["ASCAP/BMI_2020-Q2.pdf", "Amazon Music/spotify_streaming_report_2019-05.csv", "Tidal/2025-13.csv"], "action": "Refile per manifest; pipeline auto-detects on re-run" },
+    { "id": "F20", "title": "'FINAL' term sheet is byte-identical to the draft", "detail": "Three term sheet filenames (v1_PRE_LOI, DRAFT, 'v3 post call FINAL') share one MD5 — no post-call changes were ever made. scan_final.pdf is a holiday photo renamed.", "severity": "medium", "category": "hygiene", "audiences": ["executive", "lawyer"], "sources": ["indicative term sheet v3 (post call) FINAL.pdf", "scan_final.pdf"], "action": "Request the actual negotiated term sheet" },
+    { "id": "F21", "title": "13 zero-byte placeholders, 17 duplicate groups, 3 empty folders", "detail": "'AWAITING_UPLOAD' shells (SACEM 2025-H2, MCPS 2025-Q4), Office lock files, failed exports, corrupt PDFs ('2H-FY2025 (corrupt).pdf'), 35 junk/system files.", "severity": "medium", "category": "hygiene", "audiences": ["executive"], "sources": ["manifest.csv", "exact_duplicates.txt"], "action": "Hygiene list auto-generated; reissue corrupt/empty files" }
+  ],
+  "requisitions": [
+    { "counterparty": "Seller (Lena Kowalski)", "priority": "P0", "items": "Executed 2017 deed + schedules · Vermillion purchase agreement · masters assignment · $120k advance side letter · per-song ledger" },
+    { "counterparty": "Reeves & Patel (counsel)", "priority": "P0", "items": "Title opinion · estoppel certificates (4 writers/estates)" },
+    { "counterparty": "GEMA · SACEM · MLC · PRS · ASCAP · BMI · SOCAN · PPL", "priority": "P1", "items": "Duplicate statements for all gap periods · registration extracts (Carrying Stones, Quiet Engine)" },
+    { "counterparty": "Petrov & Akhtar estates", "priority": "P1", "items": "Probate / letters of administration · verified payment instructions" },
+    { "counterparty": "Bug Music (BMG)", "priority": "P1", "items": "Legible 2001 Hammond side letter incl. escalation clause" },
+    { "counterparty": "Pulse", "priority": "P2", "items": "Post-2021 authority docs · full licence schedule · BMW settlement memo" }
+  ]
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hollow Verge — Diligence Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f3f5f7;--card:#fff;--ink:#16325c;--num:#04844b;--bad:#c23934;--warn:#b7791f;--line:#e0e5ee;--muted:#54698d}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:24px}
+  header{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+  header h1{font-size:20px;font-weight:700}
+  header .sub{color:var(--muted);font-size:13px}
+  .badge{background:#16325c;color:#fff;border-radius:4px;padding:3px 10px;font-size:12px;font-weight:600;letter-spacing:.4px}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px;box-shadow:0 1px 2px rgba(22,50,92,.05)}
+  .kpi{grid-column:span 3}
+  .kpi h3{font-size:12px;font-weight:600;color:var(--muted);text-transform:none;margin-bottom:8px}
+  .kpi .num{font-size:34px;font-weight:700;color:var(--num)}
+  .kpi .num.bad{color:var(--bad)} .kpi .num.warn{color:var(--warn)}
+  .kpi .note{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.35}
+  .chart{grid-column:span 4}
+  .chart h3,.list h3,.tbl h3{font-size:13px;font-weight:700;margin-bottom:10px}
+  .list{grid-column:span 4}
+  .flag{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.4}
+  .flag:last-child{border-bottom:none}
+  .pill{flex:none;font-size:10px;font-weight:700;border-radius:3px;padding:2px 6px;height:fit-content}
+  .p0{background:#fdecea;color:var(--bad)} .p1{background:#fdf3e0;color:var(--warn)}
+  .tbl{grid-column:span 12}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{text-align:left;color:var(--muted);font-weight:600;padding:6px 10px;border-bottom:2px solid var(--line)}
+  td{padding:6px 10px;border-bottom:1px solid var(--line)}
+  .s-red{color:var(--bad);font-weight:700}.s-amber{color:var(--warn);font-weight:700}
+  canvas{max-height:210px}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">MOTIF DILIGENCE</span>
+  <h1>Hollow Verge Publishing Catalog — Data Room Audit</h1>
+  <span class="sub">Northbridge Catalog Partners LLC · 1,149 files processed · auto-generated</span>
+</header>
+
+<div class="grid">
+  <div class="card kpi"><h3>Claimed FY2023 revenue</h3><div class="num bad">$820k</div><div class="note">Reconciles to <b>$470–512k</b> in seller's own detail docs — overstated ~60–74%</div></div>
+  <div class="card kpi"><h3>Verified revenue base</h3><div class="num">$470k</div><div class="note">Sum of CY2023 statements; gap ≈ distributor label gross counted as publishing income</div></div>
+  <div class="card kpi"><h3>Top-song concentration</h3><div class="num warn">39%</div><div class="note">"December Rooftops" — disclosed as ~30%. Top 5 = 65% (vs 56% claimed), and rising</div></div>
+  <div class="card kpi"><h3>Document requirements met</h3><div class="num bad">0 / 18</div><div class="note">8 partial · 10 missing — incl. executed chain of title, probate, sample clearance</div></div>
+
+  <div class="card kpi"><h3>Files in data room</h3><div class="num" style="color:var(--ink)">1,149</div><div class="note">602 PDFs · 497 CSVs · 35 junk/system · 13 zero-byte placeholders · 3 empty folders</div></div>
+  <div class="card kpi"><h3>Duplicate groups</h3><div class="num warn">17</div><div class="note">Incl. "FINAL" term sheet byte-identical to DRAFT; holiday photo renamed as scan_final.pdf</div></div>
+  <div class="card kpi"><h3>Missing PRO statements</h3><div class="num bad">20+</div><div class="note">GEMA 2021–23 lost entirely · no MLC (US mech, 2021+) · SACEM 2022 · gaps at PRS, ASCAP, BMI, MCPS, SOCAN, PPL</div></div>
+  <div class="card kpi"><h3>Fabrication signals</h3><div class="num bad">1 hard</div><div class="note">Capston 2H-FY2026 statement issue-dated 28 Oct 2026 — a date in the future</div></div>
+
+  <div class="card chart"><h3>Claimed vs verified annual revenue (US$k)</h3><canvas id="rev"></canvas></div>
+  <div class="card chart"><h3>Statement coverage by society (2018–25, % periods present)</h3><canvas id="cov"></canvas></div>
+  <div class="card list"><h3>Top red flags</h3>
+    <div class="flag"><span class="pill p0">P0</span><span><b>Title unproven</b> — 1998 deal is admin, not assignment; 2017 deed unexecuted; schedules missing; 32 vs 40 vs 60 work-count conflict</span></div>
+    <div class="flag"><span class="pill p0">P0</span><span><b>Revenue overstated ~60–74%</b> — label gross counted as publishing income; settlements double-counted</span></div>
+    <div class="flag"><span class="pill p0">P0</span><span><b>Future-dated distributor statement</b> (2H-FY2026)</span></div>
+    <div class="flag"><span class="pill p1">P1</span><span><b>Quiet Engine</b> — operative split sheet unsigned; 12% writer has lawyers engaged</span></div>
+    <div class="flag"><span class="pill p1">P1</span><span><b>December Rooftops</b> — 30% writer share in PRS suspense (deceased, no estate contact)</span></div>
+    <div class="flag"><span class="pill p1">P1</span><span><b>Carrying Stones</b> — signed 4% share never registered at PRS; ~20yrs back-pay</span></div>
+    <div class="flag"><span class="pill p1">P1</span><span><b>Slow Engine sample</b> — split sheet "signed" 12yrs post-mortem; clearance letter illegible; 2027 escalation unknown</span></div>
+  </div>
+
+  <div class="card tbl"><h3>Gap analysis — fund requirements vs data room</h3>
+    <table>
+      <tr><th>Requirement</th><th>Status</th><th>Cure path</th></tr>
+      <tr><td>Executed chain of title + schedules (1998 → 2017 → today)</td><td class="s-red">MISSING</td><td>Seller / Reeves &amp; Patel — executed deed, purchase agreement, estoppels</td></tr>
+      <tr><td>Masters assignment (Reston Vance 2014)</td><td class="s-red">MISSING</td><td>Seller — Annex 4 of 2017 deed</td></tr>
+      <tr><td>Writer agreements · copyright registrations · probate (2 estates)</td><td class="s-red">MISSING</td><td>Estates, US Copyright Office, seller files</td></tr>
+      <tr><td>Sample clearance (Bug Music / Hammond, Slow Engine)</td><td class="s-red">MISSING</td><td>BMG archive — legible side letter incl. escalation terms</td></tr>
+      <tr><td>Split sheets (32/32) — 2 disputed, PRO registrations mismatched</td><td class="s-amber">PARTIAL</td><td>PRS/ASCAP re-registration; quantify back-royalties (Tate, Iqbal)</td></tr>
+      <tr><td>PRO statements 2018–2025 (~85% coverage)</td><td class="s-amber">PARTIAL</td><td>Societies reissue duplicates on request — GEMA, SACEM, MLC, PRS, ASCAP…</td></tr>
+      <tr><td>Distributor statements + advance side letters ($120k undisclosed)</td><td class="s-amber">PARTIAL</td><td>Reston Vance — side letter + recoupment ledger</td></tr>
+      <tr><td>One-off income confirmations (BMW $42k settlement)</td><td class="s-red">MISSING</td><td>Pulse — settlement memo + licence schedule</td></tr>
+    </table>
+  </div>
+</div>
+
+<script>
+const ink='#16325c', teal='#1ab394', blue='#0070d2', red='#c23934', amber='#ffb75d';
+new Chart(document.getElementById('rev'),{type:'bar',data:{
+  labels:['FY2023','FY2024'],
+  datasets:[{label:'Seller claim',data:[820,785],backgroundColor:'#7dc4f0'},
+            {label:'Verified from statements',data:[471,492],backgroundColor:'#04844b'}]},
+  options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{y:{beginAtZero:true,grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('cov'),{type:'bar',data:{
+  labels:['APRA','SOCAN','PRS','BMI','MCPS','ASCAP','SGAE','SACEM','PPL','GEMA','HFA/MLC'],
+  datasets:[{data:[100,94,91,91,88,88,88,88,75,63,25],
+    backgroundColor:c=>{const v=c.raw;return v>=90?'#04844b':v>=75?'#ffb75d':'#c23934'}}]},
+  options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{max:100,grid:{color:'#eef1f6'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+</script>
+</body>
+</html>
